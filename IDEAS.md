@@ -21,3 +21,12 @@ Capture will be +/- 2 minutes
 
 ### Example
 URL - http://wmbr.org:8000/hi
+
+## Cloud Storage Providers
+
+Is there a generic interface across multiple cloud storage vendors?
+
+1. Google Drive (makes content easily accessible from desktop/mobile) 
+2. Amazon (for cold storage)
+3. Apple?  Unclear how useful this would be since their Cloud experience stinks
+
