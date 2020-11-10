@@ -1,4 +1,4 @@
-# Provide a Web App that will archive MP3 audio streams
+# A web app that will archive MP3 audio streams
 
 ## Archive an existing stream archive
 Copy/paste a stream archive URL (m3u format).
