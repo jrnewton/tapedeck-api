@@ -2,4 +2,4 @@
 
 const app = Vue.create({});
 
-const mounted = app.mount('#data-entry');
+const mounted = app.mount('#tape-deck-controls');
