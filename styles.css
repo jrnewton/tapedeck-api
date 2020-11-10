@@ -1,1 +1,7 @@
-/* nothing yet */
+.tapedeck-bg {
+  background-image: url('tapedeck.png');
+  height: 200px;
+  background-position: left;
+  background-repeat: repeat;
+  background-size: contain;
+}
