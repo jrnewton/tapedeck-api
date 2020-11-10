@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tape Deck - record radio streams to the cloud</title>
     <link rel="stylesheet" href="sketchy.css" />
+    <link rel="stylesheet" href="styles.css" />
     <script defer src="https://unpkg.com/vue@next"></script>
     <script defer src="app.js"></script>
   </head>
@@ -34,7 +35,7 @@
       <hr class="my-4" />
 
       <div id="tape-deck-controls">
-        <form id="capture-form">
+        <form id="capture-form" @submit.prevent="archiveSubmit">
           <div class="form-group">
             <input
               type="text"
@@ -42,6 +43,7 @@
               id="captureURLInput"
               aria-describedby="captureURLHelp"
               placeholder="URL to archive immediately"
+              v-model="archiveURL"
             />
             <small id="captureURLHelp" class="form-text text-muted"
               >Enter the URL of an mp3 or m3u file.</small
@@ -57,7 +59,7 @@
             </button>
           </div>
         </form>
-
+        <!-- Not implemented yet 
         <form id="schedule-form">
           <div class="form-group">
             <input
@@ -91,16 +93,28 @@
               Schedule a recording
             </button>
           </div>
+           -->
         </form>
       </div>
       <p class="lead">
         <a class="btn btn-outline-info btn-lg" href="#" role="button"
           >Your Archives</a
         >
+
+        <!-- not implemented yet 
         <a class="btn btn-outline-info btn-lg" href="#" role="button"
           >Upcoming Recordings</a
         >
+        -->
       </p>
+
+      <footer>
+        <div class="tapedeck-bg"></div>
+        <a href="https://github.com/jrnewton/tapedeck" class="d-block d-sm-none"
+              >View the code on GitHub</a
+            >
+      </footer>
     </section>
+
   </body>
 </html>
