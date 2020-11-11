@@ -37,20 +37,35 @@
       <div id="tape-deck-controls">
         <form id="capture-form" @submit.prevent="archiveSubmit">
           <div class="form-group">
-            <input
-              type="text"
-              class="form-control form-control-lg"
-              id="captureURLInput"
-              aria-describedby="captureURLHelp"
-              placeholder="URL to archive immediately"
-              v-model="archiveURL"
-            />
-            <small id="captureURLHelp" class="form-text text-muted"
-              >Enter the URL of an mp3 or m3u file.</small
-            >
+            <div class="my-3">
+              <input
+                type="email"
+                class="form-control form-control-lg"
+                id="emailInput"
+                aria-describedby="emailHelp"
+                placeholder="Your email"
+                v-model="email"
+              />
+              <small id="emailHelp" class="form-text text-muted"
+                >Enter your email address.</small
+              >
+            </div>
+            <div class="my-3">
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                id="captureURLInput"
+                aria-describedby="captureURLHelp"
+                placeholder="URL to archive"
+                v-model="archiveURL"
+              />
+              <small id="captureURLHelp" class="form-text text-muted"
+                >Enter the URL of an mp3 or m3u file.</small
+              >
+            </div>
             <button
               name="captureURLButton"
-              class="btn btn-primary btn-lg"
+              class="btn btn-primary btn-lg my-3"
               href="#"
               role="button"
               type="submit"
@@ -97,7 +112,7 @@
         </form>
       </div>
       <p class="lead">
-        <a class="btn btn-outline-info btn-lg" href="#" role="button"
+        <a class="btn btn-outline-info btn-lg my-3" href="#" role="button"
           >Your Archives</a
         >
 
@@ -108,11 +123,8 @@
         -->
       </p>
 
-      <footer>
-        <div class="tapedeck-bg"></div>
-        <a href="https://github.com/jrnewton/tapedeck" class="d-block d-sm-none"
-              >View the code on GitHub</a
-            >
+      <footer class="d-block d-sm-none">
+        <a href="https://github.com/jrnewton/tapedeck">View the code on GitHub</a>
       </footer>
     </section>
 
