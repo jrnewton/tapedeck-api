@@ -10,3 +10,5 @@ AWS.config.getCredentials(function (err) {
     console.log('Access key:', AWS.config.credentials.accessKeyId);
   }
 });
+
+console.log('Region: ', AWS.config.region);
