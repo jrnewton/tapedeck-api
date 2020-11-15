@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "./bin/server.js",
   "scripts": {
-    "service": "AWS_PROFILE=tapedeck-service node ./service/archive.js",
+    "list-service": "AWS_PROFILE=tapedeck-service node ./service/listBuckets.js",
+    "archive-service": "AWS_PROFILE=tapedeck-service node ./service/archive.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
