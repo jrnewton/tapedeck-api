@@ -14,6 +14,16 @@ AWS.config.getCredentials(function (err) {
 
 console.log('Region: ', AWS.config.region);
 
+const s3 = new AWS.S3();
+
+s3.listBuckets({}, (err, data) => {
+  if (err) {
+    console.log(err, err.stack);
+  } else {
+    console.log(data);
+  }
+});
+
 // Create unique bucket name
 const bucketName = 'node-sdk-sample-' + uuid.v4();
 // Create name for uploaded object key
@@ -35,9 +45,7 @@ bucketPromise
     };
 
     // Create object upload promise
-    const uploadPromise = new AWS.S3({ apiVersion: '2006-03-01' })
-      .putObject(objectParams)
-      .promise();
+    const uploadPromise = s3.putObject(objectParams).promise();
 
     uploadPromise.then(function (data) {
       console.log(
