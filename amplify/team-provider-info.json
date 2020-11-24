@@ -10,6 +10,11 @@
       "StackName": "amplify-tapedeck-dev-213616",
       "StackId": "arn:aws:cloudformation:us-east-2:336249122316:stack/amplify-tapedeck-dev-213616/d5d3b790-2dfd-11eb-bb9b-0a2205549386",
       "AmplifyAppId": "d2q6s8ebfmva8f"
+    },
+    "categories": {
+      "auth": {
+        "tapedeckbee2ca55": {}
+      }
     }
   }
 }
