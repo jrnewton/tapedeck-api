@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tape Deck - record radio streams to the cloud</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="sketchy.min.css" />
+    <script defer src="https://unpkg.com/vue@next"></script>
+    <script defer src="tapedeck-archives.js"></script>
+  </head>
+
+  <body>
+    <div id="tapedeck-archives">
+      <section class="jumbotron m-0 m-sm-3 m-lg-5">
+        <div class="row d-none d-sm-inline">
+          <div class="col-12">
+            <h1 class="display-3">Tape Deck Archives</h1>
+          </div>
+        </div>
+
+        <p class="lead">Archives for {{ email }}</p>
+        <hr class="my-4" />
+
+        <h4>Recent Recordings</h4>
+
+        <div class="row" v-for="item in recent">
+          <audio ref="audio" :muted="item.muted">
+            <source :src="item.url" type="audio/mpeg" />
+            <p>
+              Your browser does not support audio controls but you can
+              <a :href="item.url">download the file</a>
+              directly.
+            </p>
+          </audio>
+
+          <div class="col-md-2">{{ item.desc }}</div>
+          <div class="col-md-1">
+            <button @click="play(item)">
+              <i class="fas fa-play"></i>
+            </button>
+          </div>
+          <div class="col-md-1">
+            <button @click="pause(item)">
+              <i class="fas fa-pause"></i>
+            </button>
+          </div>
+          <div class="col-md-1">
+            <button @click="forward(item)">
+              <i class="fas fa-redo"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

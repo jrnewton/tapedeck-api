@@ -6,7 +6,7 @@
     <title>Tape Deck - record radio streams to the cloud</title>
     <link rel="stylesheet" href="sketchy.min.css" />
     <script defer src="https://unpkg.com/vue@next"></script>
-    <script defer src="app.js"></script>
+    <script defer src="tapedeck-controls.js"></script>
   </head>
 
   <body>
@@ -34,7 +34,7 @@
 
       <hr class="my-4" />
 
-      <div id="tape-deck-controls">
+      <div id="tapedeck-controls">
         <form id="capture-form" @submit.prevent="archiveSubmit">
           <div class="form-group">
             <div class="my-3">
@@ -74,53 +74,14 @@
             </button>
           </div>
         </form>
-        <!-- Not implemented yet 
-        <form id="schedule-form">
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control form-control-lg"
-              id="scheduleInput"
-              aria-describedby="scheduleHelp"
-              placeholder="Time to start recording"
-            />
-            <small id="scheduleHelp" class="form-text text-muted"
-              >Enter the URL of an m3u file to archive all linked
-              contents.</small
-            >
-            <input
-              type="text"
-              class="form-control form-control-lg"
-              id="durationInput"
-              aria-describedby="durationHelp"
-              placeholder="# of hours to record"
-            />
-            <small id="durationHelp" class="form-text text-muted"
-              >Enter the nubmer of hours to capture the stream.</small
-            >
-            <button
-              name="scheduleButton"
-              class="btn btn-primary btn-lg"
-              href="#"
-              role="button"
-              type="submit"
-            >
-              Schedule a recording
-            </button>
-          </div>
-        </form>
-         -->
       </div>
       <p class="lead">
-        <a class="btn btn-outline-info btn-lg my-3" href="#" role="button"
+        <a
+          class="btn btn-outline-info btn-lg my-3"
+          href="archives.html"
+          role="button"
           >Your Archives</a
         >
-
-        <!-- not implemented yet 
-        <a class="btn btn-outline-info btn-lg" href="#" role="button"
-          >Upcoming Recordings</a
-        >
-        -->
       </p>
 
       <footer class="d-block d-sm-none">
@@ -128,14 +89,6 @@
           >View the code on GitHub</a
         >
       </footer>
-
-      <audio controls>
-        <source src="https://tapedeck-88da7a2d-990c-474b-aa2f-2716203101d9.s3.us-east-2.amazonaws.com/test.mp3" type="audio/mpeg" preload="metadata" />
-        <p>
-          Your browser does not support audio controls but you can
-          <a href="https://tapedeck-88da7a2d-990c-474b-aa2f-2716203101d9.s3.us-east-2.amazonaws.com/test.mp3">download the file</a> directly.
-        </p>
-      </audio>
     </section>
   </body>
 </html>

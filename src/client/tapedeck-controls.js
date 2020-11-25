@@ -30,4 +30,4 @@ const app = Vue.createApp({
   computed: {}
 });
 
-const mounted = app.mount('#tape-deck-controls');
+const mounted = app.mount('#tapedeck-controls');
