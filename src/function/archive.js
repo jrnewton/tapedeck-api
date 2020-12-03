@@ -4,6 +4,7 @@
    see https://github.com/axios/axios/issues/1975 */
 const axios = require('axios').default;
 const fs = require('fs');
+const uuid = require('uuid');
 const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
 
 (async () => {
@@ -32,9 +33,14 @@ const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
         const m3uLines = rawData.split('\n');
         console.log(`m3u file has line count ${m3uLines.length}`);
 
-        const filesToDownload = m3uLines.filter(
-          (line) => !line.startsWith('#') && line.length > 0
-        );
+        const filesToDownload = m3uLines.filter((line) => {
+          if (!line.startsWith('#') && line.length > 0) {
+            if (line.search(/\.mp3$/g)) {
+              return true;
+            }
+          }
+          return false;
+        });
         console.log('files to download:');
         console.log(JSON.stringify(filesToDownload));
 
@@ -45,8 +51,9 @@ const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
 
           console.time();
           console.log(`downloading ${url}`);
-          mp3Response.data.pipe(fs.createWriteStream('/tmp/test.mp3'));
-          console.log(`completed for ${url}`);
+          const outfile = `/tmp/${uuid.v4()}.mp3`;
+          mp3Response.data.pipe(fs.createWriteStream(outfile));
+          console.log(`written to ${outfile}`);
           console.timeEnd();
         }
       } else {
