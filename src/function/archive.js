@@ -3,13 +3,13 @@
 /* use '.default' otherwise you'll get a tslint warning
    see https://github.com/axios/axios/issues/1975 */
 const axios = require('axios').default;
-const fs = require('fs');
+const stream = require('stream');
 const uuid = require('uuid');
 const AWS = require('aws-sdk');
 
 AWS.config.logger = console;
 
-async function downloadPlaylist(url, maxFiles, fileAction) {
+async function downloadPlaylist(url, maxFiles, callback) {
   try {
     const res = await axios.get(url);
     console.log('headers');
@@ -58,14 +58,14 @@ async function downloadPlaylist(url, maxFiles, fileAction) {
 
           console.time();
           console.log(`downloading ${url}`);
-          const outfile = `/tmp/${uuid.v4()}.mp3`;
-          mp3Response.data.pipe(fs.createWriteStream(outfile));
-          console.log(`written to ${outfile}`);
-          console.timeEnd();
+          const key = `${uuid.v4()}.mp3`;
 
-          if (fileAction) {
-            fileAction(outfile);
-          }
+          let pass = new stream.PassThrough();
+          mp3Response.data.pipe(pass);
+          callback(key, pass);
+
+          console.log(`written to key ${key}`);
+          console.timeEnd();
 
           count++;
         }
@@ -78,7 +78,7 @@ async function downloadPlaylist(url, maxFiles, fileAction) {
   }
 }
 
-function uploadFile(file) {
+function uploadFile(key, pass) {
   AWS.config.getCredentials(function (err) {
     if (err) {
       console.log('credentials not loaded');
@@ -96,39 +96,18 @@ function uploadFile(file) {
 
   const params = {
     Bucket: 'tapedeck-archives',
-    Key: 'test',
-    Body: 'Hello World!'
+    Key: key,
+    Body: pass
   };
 
-  s3.putObject(params, (err, data) => {
+  s3.upload(params, (err, data) => {
     if (err) {
-      console.log(err);
+      console.log('failed to write to s3', err);
     } else {
-      console.log('wrote something', data);
-    }
-  });
-
-  // s3.listBuckets((err, data) => {
-  //   if (err) {
-  //     console.log('listBuckets', err);
-  //   } else {
-  //     console.log('listBuckets', data);
-  //   }
-  // });
-
-  s3.listObjects({ Bucket: 'tapedeck-archives' }, (err, data) => {
-    if (err) {
-      console.log('listObjects', err);
-    } else {
-      console.log('listObjects', data);
+      console.log('finished write to s3', data);
     }
   });
 }
 
-// const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
-// downloadPlaylist(url, 1, uploadFile);
-
-const file = '/tmp/4311561e-ad9c-49f8-b85e-4e474d21b64e.mp3';
-uploadFile(file);
-
-//https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/requests-using-stream-objects.html
+const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
+downloadPlaylist(url, 1, uploadFile);
