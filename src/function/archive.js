@@ -5,9 +5,11 @@
 const axios = require('axios').default;
 const fs = require('fs');
 const uuid = require('uuid');
-const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
+const AWS = require('aws-sdk');
 
-(async () => {
+AWS.config.logger = console;
+
+async function downloadPlaylist(url, maxFiles, fileAction) {
   try {
     const res = await axios.get(url);
     console.log('headers');
@@ -44,7 +46,12 @@ const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
         console.log('files to download:');
         console.log(JSON.stringify(filesToDownload));
 
+        let count = 0;
         for (const url of filesToDownload) {
+          if (count > maxFiles) {
+            break;
+          }
+
           let mp3Response = await axios.get(url, {
             responseType: 'stream'
           });
@@ -55,6 +62,12 @@ const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
           mp3Response.data.pipe(fs.createWriteStream(outfile));
           console.log(`written to ${outfile}`);
           console.timeEnd();
+
+          if (fileAction) {
+            fileAction(outfile);
+          }
+
+          count++;
         }
       } else {
         throw new Error('not an m3u file');
@@ -63,61 +76,59 @@ const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
   } catch (error) {
     console.error(error);
   }
-})();
+}
 
-// const AWS = require('aws-sdk');
-// const uuid = require('uuid');
+function uploadFile(file) {
+  AWS.config.getCredentials(function (err) {
+    if (err) {
+      console.log('credentials not loaded');
+      console.log(err.stack);
+    } else {
+      console.log('Access key:', AWS.config.credentials.accessKeyId);
+    }
+  });
 
-// AWS.config.getCredentials(function (err) {
-//   if (err) {
-//     console.log('credentials not loaded');
-//     console.log(err.stack);
-//   } else {
-//     console.log('Access key:', AWS.config.credentials.accessKeyId);
-//   }
-// });
+  const s3 = new AWS.S3({
+    apiVersion: '2006-03-01',
+    region: 'us-east-2',
+    params: { Bucket: 'tapedeck-archives' }
+  });
 
-// console.log('Region: ', AWS.config.region);
+  const params = {
+    Bucket: 'tapedeck-archives',
+    Key: 'test',
+    Body: 'Hello World!'
+  };
 
-// const s3 = new AWS.S3();
+  s3.putObject(params, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('wrote something', data);
+    }
+  });
 
-// s3.listBuckets({}, (err, data) => {
-//   if (err) {
-//     console.log(err, err.stack);
-//   } else {
-//     console.log(data);
-//   }
-// });
+  // s3.listBuckets((err, data) => {
+  //   if (err) {
+  //     console.log('listBuckets', err);
+  //   } else {
+  //     console.log('listBuckets', data);
+  //   }
+  // });
 
-// // Create unique bucket name
-// const bucketName = 'node-sdk-sample-' + uuid.v4();
-// // Create name for uploaded object key
-// const keyName = 'hello_world.txt';
+  s3.listObjects({ Bucket: 'tapedeck-archives' }, (err, data) => {
+    if (err) {
+      console.log('listObjects', err);
+    } else {
+      console.log('listObjects', data);
+    }
+  });
+}
 
-// // Create a promise on S3 service object
-// const bucketPromise = new AWS.S3({ apiVersion: '2006-03-01' })
-//   .createBucket({ Bucket: bucketName })
-//   .promise();
+// const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
+// downloadPlaylist(url, 1, uploadFile);
 
-// // Handle promise fulfilled/rejected states
-// bucketPromise
-//   .then(function (data) {
-//     // Create params for putObject call
-//     const objectParams = {
-//       Bucket: bucketName,
-//       Key: keyName,
-//       Body: 'Hello World!'
-//     };
+const file = '/tmp/4311561e-ad9c-49f8-b85e-4e474d21b64e.mp3';
+uploadFile(file);
 
-//     // Create object upload promise
-//     const uploadPromise = s3.putObject(objectParams).promise();
-
-//     uploadPromise.then(function (data) {
-//       console.log(
-//         'Successfully uploaded data to ' + bucketName + '/' + keyName
-//       );
-//     });
-//   })
-//   .catch(function (err) {
-//     console.error(err, err.stack);
-//   });
+//https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/requests-using-stream-objects.html
