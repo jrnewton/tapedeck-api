@@ -56,16 +56,11 @@ async function downloadPlaylist(url, maxFiles, callback) {
             responseType: 'stream'
           });
 
-          console.time();
-          console.log(`downloading ${url}`);
-          const key = `${uuid.v4()}.mp3`;
-
           let pass = new stream.PassThrough();
           mp3Response.data.pipe(pass);
-          callback(key, pass);
 
-          console.log(`written to key ${key}`);
-          console.timeEnd();
+          const meta = ''; //TODO: parse this out of m3u
+          callback(meta, url, pass);
 
           count++;
         }
@@ -78,7 +73,13 @@ async function downloadPlaylist(url, maxFiles, callback) {
   }
 }
 
-function uploadFile(key, pass) {
+function upload(metadata, url, pass) {
+  console.time('s3 upload');
+  console.log(`processing ${url}`);
+
+  //TODO: store meta and url
+  const key = `${uuid.v4()}.mp3`;
+
   AWS.config.getCredentials(function (err) {
     if (err) {
       console.log('credentials not loaded');
@@ -90,8 +91,7 @@ function uploadFile(key, pass) {
 
   const s3 = new AWS.S3({
     apiVersion: '2006-03-01',
-    region: 'us-east-2',
-    params: { Bucket: 'tapedeck-archives' }
+    region: 'us-east-2'
   });
 
   const params = {
@@ -102,12 +102,14 @@ function uploadFile(key, pass) {
 
   s3.upload(params, (err, data) => {
     if (err) {
-      console.log('failed to write to s3', err);
+      console.log('failed write to s3', err);
     } else {
       console.log('finished write to s3', data);
     }
+    console.timeEnd('s3 upload');
   });
 }
 
 const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
-downloadPlaylist(url, 1, uploadFile);
+//const url = 'https://wmbr.org/m3u/Backwoods_20201128_1000.m3u';
+downloadPlaylist(url, 1, upload);
