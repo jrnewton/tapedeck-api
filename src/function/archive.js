@@ -4,7 +4,7 @@
    see https://github.com/axios/axios/issues/1975 */
 const axios = require('axios').default;
 const fs = require('fs');
-const url = 'https://wmbr.org/m3u/Backwoods_20201121_1000.m3u';
+const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
 
 (async () => {
   try {
@@ -19,7 +19,7 @@ const url = 'https://wmbr.org/m3u/Backwoods_20201121_1000.m3u';
       throw new Error(`Failed to GET ${url}, status=${status}`);
     }
     //Might need to support type aliases - http://help.dottoro.com/lapuadlp.php
-    else if (contentType === 'audio/x-mpegurl') {
+    else if (contentType !== 'audio/x-mpegurl') {
       throw new Error(
         `Unsupported content-type for ${url}, content-type=${contentType}`
       );
@@ -42,15 +42,19 @@ const url = 'https://wmbr.org/m3u/Backwoods_20201121_1000.m3u';
           let mp3Response = await axios.get(url, {
             responseType: 'stream'
           });
-          console.log(`writing ${url}`);
-          mp3Response.data.pipe(fs.createWriteStream('./src/client/test.mp3'));
+
+          console.time();
+          console.log(`downloading ${url}`);
+          mp3Response.data.pipe(fs.createWriteStream('/tmp/test.mp3'));
+          console.log(`completed for ${url}`);
+          console.timeEnd();
         }
       } else {
         throw new Error('not an m3u file');
       }
     }
   } catch (error) {
-    console.error(JSON.stringify(error));
+    console.error(error);
   }
 })();
 
