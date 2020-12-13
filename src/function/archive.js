@@ -10,10 +10,11 @@ const axios = require('axios').default;
 const stream = require('stream');
 const uuid = require('uuid');
 const AWS = require('aws-sdk');
+const m3u = require('./m3u');
 
 AWS.config.logger = console;
 
-async function downloadPlaylist(url, maxFiles, callback) {
+async function downloadPlaylist(url, callback, maxFiles = 1) {
   try {
     const res = await axios.get(url);
     console.log('headers');
@@ -31,45 +32,26 @@ async function downloadPlaylist(url, maxFiles, callback) {
         `Unsupported content-type for ${url}, content-type=${contentType}`
       );
     } else {
-      const rawData = res.data;
-      console.log('raw data:');
-      console.log(rawData);
+      const filesToDownload = m3u.getMusicFiles(res.data);
+      console.log('files to download:');
+      console.log(JSON.stringify(filesToDownload));
 
-      if (rawData.startsWith('#EXTM3U')) {
-        const m3uLines = rawData.split('\n');
-        console.log(`m3u file has line count ${m3uLines.length}`);
-
-        const filesToDownload = m3uLines.filter((line) => {
-          if (!line.startsWith('#') && line.length > 0) {
-            if (line.search(/\.mp3$/g)) {
-              return true;
-            }
-          }
-          return false;
-        });
-        console.log('files to download:');
-        console.log(JSON.stringify(filesToDownload));
-
-        let count = 0;
-        for (const url of filesToDownload) {
-          if (count > maxFiles) {
-            break;
-          }
-
-          let mp3Response = await axios.get(url, {
-            responseType: 'stream'
-          });
-
-          let pass = new stream.PassThrough();
-          mp3Response.data.pipe(pass);
-
-          const meta = ''; //TODO: parse this out of m3u
-          callback(meta, url, pass);
-
-          count++;
+      let count = 0;
+      for (const resource of filesToDownload) {
+        if (count > maxFiles) {
+          break;
         }
-      } else {
-        throw new Error('not an m3u file');
+
+        let mp3Response = await axios.get(resource.uri, {
+          responseType: 'stream'
+        });
+
+        let pass = new stream.PassThrough();
+        mp3Response.data.pipe(pass);
+
+        callback(resource, pass);
+
+        count++;
       }
     }
   } catch (error) {
@@ -77,9 +59,9 @@ async function downloadPlaylist(url, maxFiles, callback) {
   }
 }
 
-function upload(metadata, url, pass) {
+function upload(resource, pass) {
   console.time('s3 upload');
-  console.log(`processing ${url}`);
+  console.log(`processing ${resource.uri}`);
 
   //TODO: store meta and url
   const key = `${uuid.v4()}.mp3`;
@@ -116,4 +98,4 @@ function upload(metadata, url, pass) {
 
 const url = 'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
 //const url = 'https://wmbr.org/m3u/Backwoods_20201128_1000.m3u';
-downloadPlaylist(url, 1, upload);
+downloadPlaylist(url, upload);
