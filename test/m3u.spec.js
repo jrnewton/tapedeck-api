@@ -17,9 +17,9 @@ test('simple parse test', (t) => {
   );
 });
 
-test('get mp3 files list test', (t) => {
+test('getMp3URIs test', (t) => {
   const fileContents = fs.readFileSync(__dirname + '/test.m3u', 'utf-8');
-  const contents = m3u.getMp3Files(fileContents);
+  const contents = m3u.getMP3URIs(fileContents);
   console.log(contents);
 
   t.is(contents.length, 1);

@@ -22,9 +22,9 @@ function parse(fileContents) {
   });
 }
 
-function getMp3Files(fileContents) {
+function getMP3URIs(fileContents) {
   return parse(fileContents).filter((entry) => entry.uri.match(/\.mp3$/g));
 }
 
 module.exports.parse = parse;
-module.exports.getMp3Files = getMp3Files;
+module.exports.getMP3URIs = getMP3URIs;

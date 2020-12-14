@@ -32,13 +32,13 @@ async function downloadPlaylist(url, callback, maxFiles = 1) {
         `Unsupported content-type for ${url}, content-type=${contentType}`
       );
     } else {
-      const filesToDownload = m3u.getMusicFiles(res.data);
+      const filesToDownload = m3u.getMP3URIs(res.data);
       console.log('files to download:');
       console.log(JSON.stringify(filesToDownload));
 
       let count = 0;
       for (const resource of filesToDownload) {
-        if (count > maxFiles) {
+        if (count++ > maxFiles) {
           break;
         }
 
@@ -50,8 +50,6 @@ async function downloadPlaylist(url, callback, maxFiles = 1) {
         mp3Response.data.pipe(pass);
 
         callback(resource, pass);
-
-        count++;
       }
     }
   } catch (error) {
