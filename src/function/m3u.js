@@ -22,13 +22,9 @@ function parse(fileContents) {
   });
 }
 
-function getMusicFiles(fileContents) {
-  const playlist = parse(fileContents);
-  console.log('playlist contents', playlist);
-
-  const filesToDownload = playlist.filter((line) => line.uri.search(/\.mp3$/g));
-  return filesToDownload;
+function getMp3Files(fileContents) {
+  return parse(fileContents).filter((entry) => entry.uri.match(/\.mp3$/g));
 }
 
 module.exports.parse = parse;
-module.exports.getMusicFiles = getMusicFiles;
+module.exports.getMp3Files = getMp3Files;
