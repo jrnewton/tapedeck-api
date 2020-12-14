@@ -9,6 +9,19 @@ test('simple parse test', (t) => {
   const contents = m3u.parse(fileContents);
   console.log(contents);
 
+  t.is(contents.length, 2);
+  t.is(contents[0].title, 'test');
+  t.is(
+    contents[0].uri,
+    'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3'
+  );
+});
+
+test('get mp3 files list test', (t) => {
+  const fileContents = fs.readFileSync(__dirname + '/test.m3u', 'utf-8');
+  const contents = m3u.getMp3Files(fileContents);
+  console.log(contents);
+
   t.is(contents.length, 1);
   t.is(contents[0].title, 'test');
   t.is(
