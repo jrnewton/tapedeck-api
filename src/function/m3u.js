@@ -33,36 +33,32 @@ const getFiles = (manifest, fileExtension = 'mp3') => {
 };
 
 const forEach = async (url, callback, limit = 1) => {
-  try {
-    const res = await axios.get(url);
-    debug('headers');
-    debug(JSON.stringify(res.headers));
+  const res = await axios.get(url);
+  debug('headers');
+  debug(JSON.stringify(res.headers));
 
-    const { status } = res;
-    const contentType = res.headers['content-type'];
+  const { status } = res;
+  const contentType = res.headers['content-type'];
 
-    if (status !== 200) {
-      throw new Error(`Failed to GET ${url}, status=${status}`);
-    }
-    //Might need to support type aliases - http://help.dottoro.com/lapuadlp.php
-    else if (contentType !== 'audio/x-mpegurl') {
-      throw new Error(
-        `Unsupported content-type for ${url}, content-type=${contentType}`
-      );
-    } else {
-      const filesToDownload = getFiles(res.data);
+  if (status !== 200) {
+    throw new Error(`Failed to GET ${url}, status=${status}`);
+  }
+  //Might need to support type aliases - http://help.dottoro.com/lapuadlp.php
+  else if (contentType !== 'audio/x-mpegurl') {
+    throw new Error(
+      `Unsupported content-type for ${url}, content-type=${contentType}`
+    );
+  } else {
+    const filesToDownload = getFiles(res.data);
 
-      let count = 0;
-      for (const resource of filesToDownload) {
-        if (limit > 0 && count++ > limit) {
-          break;
-        }
-
-        callback(resource.uri, resource);
+    let count = 0;
+    for (const resource of filesToDownload) {
+      if (limit > 0 && count++ > limit) {
+        break;
       }
+
+      callback(resource.uri, resource);
     }
-  } catch (error) {
-    console.error(error);
   }
 };
 
