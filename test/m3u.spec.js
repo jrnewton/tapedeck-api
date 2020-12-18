@@ -1,35 +1,31 @@
 'use strict';
 
 const fs = require('fs');
-const assert = require('assert');
-const m3u = require('../src/function/m3u');
+const test = require('ava');
+const m3u = require('./../src/function/m3u');
 
-const mp3URL =
-  'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3';
-
-const m3uURL =
-  'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
-
-it('should parse a simple m3u playlist without error', () => {
+test('simple parse test', (t) => {
   const fileContents = fs.readFileSync(__dirname + '/test.m3u', 'utf-8');
   const contents = m3u.parse(fileContents);
+  console.log(contents);
 
-  assert.strictEqual(contents.length, 2);
-  assert.strictEqual(contents[0].title, 'test');
-  assert.strictEqual(contents[0].uri, mp3URL);
+  t.is(contents.length, 2);
+  t.is(contents[0].title, 'test');
+  t.is(
+    contents[0].uri,
+    'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3'
+  );
 });
 
-it('should provide a list of files from the m3u playlist', () => {
+test('getMp3URIs test', (t) => {
   const fileContents = fs.readFileSync(__dirname + '/test.m3u', 'utf-8');
-  const files = m3u.getFiles(fileContents);
+  const contents = m3u.getMP3URIs(fileContents);
+  console.log(contents);
 
-  assert.strictEqual(files.length, 1);
-  assert.strictEqual(files[0].title, 'test');
-  assert.strictEqual(files[0].uri, mp3URL);
-});
-
-it('should download each file from m3u playlist', async () => {
-  let count = 0;
-  await m3u.forEach(m3uURL, () => count++);
-  assert.deepStrictEqual(1, 1);
+  t.is(contents.length, 1);
+  t.is(contents[0].title, 'test');
+  t.is(
+    contents[0].uri,
+    'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3'
+  );
 });

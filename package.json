@@ -4,9 +4,9 @@
   "main": "./bin/server.js",
   "scripts": {
     "ui": "DEBUG=tapedeck:* nodemon",
-    "service": "DEBUG=* AWS_PROFILE=tapedeck-service node --trace-event-categories=v8,async_hooks --trace-warnings --unhandled-rejections=strict ./src/function/archive.js",
-    "test": "mocha --trace-event-categories=v8,async_hooks --trace-warnings --unhandled-rejections=strict",
-    "test-watch": "mocha --watch --trace-event-categories=v8,async_hooks --trace-warnings --unhandled-rejections=strict",
+    "service": "DEBUG=* AWS_PROFILE=tapedeck-service node --trace-warnings ./src/function/archive.js",
+    "test": "ava",
+    "test-watch": "ava --watch",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -14,13 +14,12 @@
     "axios": "^0.21.0",
     "debug": "^4.3.1",
     "express": "^4.17.1",
-    "mocha": "^8.2.1",
     "parse-hls": "^1.0.7",
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {
-    "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.9",
+    "ava": "^3.14.0",
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
