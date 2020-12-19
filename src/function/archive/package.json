@@ -1,13 +1,9 @@
 {
-  "name": "tapedeck",
+  "name": "tapedeck-archive-function",
   "version": "1.0.0",
   "main": "./archive.js",
   "scripts": {
-    "ui": "DEBUG=tapedeck:* nodemon",
-    "service": "DEBUG=* AWS_PROFILE=tapedeck-service node --trace-event-categories=v8,async_hooks --trace-warnings --unhandled-rejections=strict ./src/function/archive.js",
-    "test": "mocha",
-    "test-watch": "mocha --watch",
-    "lint": "eslint ."
+    "start": "DEBUG=* AWS_PROFILE=tapedeck-service node --trace-event-categories=v8,async_hooks --trace-warnings --unhandled-rejections=strict ./archive.js"
   },
   "dependencies": {
     "aws-sdk": "^2.791.0",

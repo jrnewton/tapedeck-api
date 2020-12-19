@@ -1,10 +1,8 @@
 {
   "name": "tapedeck",
   "version": "1.0.0",
-  "main": "./bin/server.js",
+  "main": "index.js",
   "scripts": {
-    "ui": "DEBUG=tapedeck:* nodemon",
-    "service": "DEBUG=* AWS_PROFILE=tapedeck-service node --trace-event-categories=v8,async_hooks --trace-warnings --unhandled-rejections=strict ./src/function/archive.js",
     "test": "mocha",
     "test-watch": "mocha --watch",
     "lint": "eslint ."
@@ -17,7 +15,6 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "mocha": "^8.2.1",
-    "nodemon": "^2.0.6",
     "prettier": "^2.2.0",
     "typescript": "^4.1.2"
   }
