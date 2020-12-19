@@ -12,6 +12,8 @@
     "outDir": "types",
   },
   "exclude": [
+    "src/client/**",
+    "test",
     "node_modules",
     "**/*.d.ts",
     ".eslintrc.js"
