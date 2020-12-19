@@ -9,6 +9,15 @@ const app = Vue.createApp({
     };
   },
   methods: {
+    async test(event) {
+      try {
+        //TODO: add real URL once auth is in place
+        const res = await axios.get('lambda-url');
+        console.log(JSON.stringify(res));
+      } catch (error) {
+        console.log(error);
+      }
+    },
     archiveSubmit(event) {
       if (this.email === '') {
         alert('Please enter your email address');
@@ -30,4 +39,4 @@ const app = Vue.createApp({
   computed: {}
 });
 
-const mounted = app.mount('#tapedeck-controls');
+const mounted = app.mount('#tapedeck-main');
