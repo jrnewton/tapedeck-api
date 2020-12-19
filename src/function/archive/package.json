@@ -1,7 +1,7 @@
 {
   "name": "tapedeck",
   "version": "1.0.0",
-  "main": "./bin/server.js",
+  "main": "./archive.js",
   "scripts": {
     "ui": "DEBUG=tapedeck:* nodemon",
     "service": "DEBUG=* AWS_PROFILE=tapedeck-service node --trace-event-categories=v8,async_hooks --trace-warnings --unhandled-rejections=strict ./src/function/archive.js",

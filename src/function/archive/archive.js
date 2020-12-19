@@ -34,6 +34,10 @@ function parseM3UFile(fileContents) {
   });
 }
 
+const getMP3URLs = (playlistItems) => {
+  return playlistItems.filter((item) => item.uri.match(/\.mp3$/g));
+};
+
 const upload = async (resource, pass) => {
   console.log(`[upload] processing ${resource.uri}`);
 
@@ -101,9 +105,7 @@ const handler = async (event, context) => {
       console.log('[handler]', msg);
       return badStatus(msg);
     } else {
-      const filesToDownload = parseM3UFile(res.data).filter((entry) =>
-        entry.uri.match(/\.mp3$/g)
-      );
+      const filesToDownload = getMP3URLs(parseM3UFile(res.data));
       console.log('[handler] files:', JSON.stringify(filesToDownload));
 
       let count = 0;
@@ -133,3 +135,7 @@ const handler = async (event, context) => {
 };
 
 exports.lambdaHandler = handler;
+
+//For unit tests
+module.exports.parseM3UFile = parseM3UFile;
+module.exports.getMP3URLs = getMP3URLs;

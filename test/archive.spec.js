@@ -2,12 +2,11 @@
 
 const fs = require('fs');
 const assert = require('assert');
-const m3u = require('./../src/function/m3u');
+const archive = require('./../src/function/archive');
 
 it('should parse a simple m3u playlist without error', () => {
   const fileContents = fs.readFileSync(__dirname + '/test.m3u', 'utf-8');
-  const contents = m3u.parse(fileContents);
-  console.log(contents);
+  const contents = archive.parseM3UFile(fileContents);
 
   assert.strictEqual(contents.length, 2);
   assert.strictEqual(contents[0].title, 'test');
@@ -19,8 +18,7 @@ it('should parse a simple m3u playlist without error', () => {
 
 it('should provide a list of files from the m3u playlist', () => {
   const fileContents = fs.readFileSync(__dirname + '/test.m3u', 'utf-8');
-  const contents = m3u.getMP3URIs(fileContents);
-  console.log(contents);
+  const contents = archive.getMP3URLs(archive.parseM3UFile(fileContents));
 
   assert.strictEqual(contents.length, 1);
   assert.strictEqual(contents[0].title, 'test');
