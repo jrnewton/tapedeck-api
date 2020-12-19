@@ -10,9 +10,29 @@ const axios = require('axios').default;
 const stream = require('stream');
 const uuid = require('uuid');
 const AWS = require('aws-sdk');
-const m3u = require('./m3u');
+const HLS = require('parse-hls').default;
 
 AWS.config.logger = console;
+
+function parseM3UFile(fileContents) {
+  return HLS.parse(fileContents).segments.map((segment) => {
+    return segment.properties.reduce(
+      (accum, prop) => {
+        if (
+          /* stop at first title */
+          accum.title === null &&
+          prop.type === 'TAG' &&
+          prop.tagName === 'EXTINF'
+        ) {
+          accum.title = prop.attributes.title;
+        }
+
+        return accum;
+      },
+      { uri: segment.uri, title: null }
+    );
+  });
+}
 
 const upload = async (resource, pass) => {
   console.log(`[upload] processing ${resource.uri}`);
@@ -81,7 +101,9 @@ const handler = async (event, context) => {
       console.log('[handler]', msg);
       return badStatus(msg);
     } else {
-      const filesToDownload = m3u.getMP3URIs(res.data);
+      const filesToDownload = parseM3UFile(res.data).filter((entry) =>
+        entry.uri.match(/\.mp3$/g)
+      );
       console.log('[handler] files:', JSON.stringify(filesToDownload));
 
       let count = 0;
