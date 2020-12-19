@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tape Deck - record radio streams to the cloud</title>
     <link rel="stylesheet" href="sketchy.min.css" />
-    <script defer src="https://unpkg.com/vue@next"></script>
+    <script defer src="https://unpkg.com/vue@3.0.4"></script>
+    <script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script defer src="tapedeck-main.js"></script>
   </head>
 
@@ -76,16 +77,24 @@
             </button>
           </div>
         </form>
+        <p class="lead">
+          <a
+            class="btn btn-outline-info btn-lg my-3"
+            href="archives.html"
+            role="button"
+            >Your Archives</a
+          >
+        </p>
+        <p class="lead">
+          <button
+            @click="test"
+            class="btn btn-outline-danger btn-lg my-3"
+            role="button"
+          >
+            Test
+          </button>
+        </p>
       </div>
-      <p class="lead">
-        <a
-          class="btn btn-outline-info btn-lg my-3"
-          href="archives.html"
-          role="button"
-          >Your Archives</a
-        >
-      </p>
-
       <footer class="d-block d-sm-none">
         <a href="https://github.com/jrnewton/tapedeck"
           >View the code on GitHub</a
