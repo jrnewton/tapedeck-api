@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "test-watch": "mocha --watch",
+    "test": "mocha \"**/test/*.spec.js\"",
+    "test-watch": "mocha --watch \"**/test/*.spec.js\"",
     "lint": "eslint ."
   },
   "dependencies": {},
@@ -14,6 +14,7 @@
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-vue": "^7.3.0",
     "mocha": "^8.2.1",
     "prettier": "^2.2.0",
     "typescript": "^4.1.2"

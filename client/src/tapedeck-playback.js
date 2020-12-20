@@ -1,6 +1,6 @@
-'use strict';
+import Vue from 'vue';
 
-const app = Vue.createApp({
+Vue.createApp({
   data() {
     return {
       id: 1,
@@ -9,6 +9,4 @@ const app = Vue.createApp({
         'https://tapedeck-88da7a2d-990c-474b-aa2f-2716203101d9.s3.us-east-2.amazonaws.com/test.mp3'
     };
   }
-});
-
-const mounted = app.mount('#tapedeck-playback');
+}).mount('#tapedeck-playback');

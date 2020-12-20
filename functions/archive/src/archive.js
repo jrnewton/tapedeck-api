@@ -83,7 +83,7 @@ const goodStatus = (count) => {
   };
 };
 
-const handler = async (event, context) => {
+const handler = async () => {
   const url =
     'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
   const maxFiles = 1;

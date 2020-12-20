@@ -1,6 +1,7 @@
-'use strict';
+import Vue from 'vue';
+import axios from 'axios';
 
-const app = Vue.createApp({
+Vue.createApp({
   data() {
     return {
       email: '',
@@ -9,7 +10,7 @@ const app = Vue.createApp({
     };
   },
   methods: {
-    async test(event) {
+    async test() {
       try {
         //TODO: add real URL once auth is in place
         const res = await axios.get('lambda-url');
@@ -18,7 +19,7 @@ const app = Vue.createApp({
         console.log(error);
       }
     },
-    archiveSubmit(event) {
+    archiveSubmit() {
       if (this.email === '') {
         alert('Please enter your email address');
         return;
@@ -37,6 +38,4 @@ const app = Vue.createApp({
     }
   },
   computed: {}
-});
-
-const mounted = app.mount('#tapedeck-main');
+}).mount('#tapedeck-main');

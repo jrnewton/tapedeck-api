@@ -1,6 +1,6 @@
-'use strict';
+import Vue from 'vue';
 
-const app = Vue.createApp({
+Vue.createApp({
   data() {
     return {
       email: 'newt@hey.com',
@@ -14,6 +14,4 @@ const app = Vue.createApp({
       ]
     };
   }
-});
-
-const mounted = app.mount('#tapedeck-archives');
+}).mount('#tapedeck-archives');
