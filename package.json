@@ -6,7 +6,8 @@
     "test": "mocha \"**/test/*.spec.js\"",
     "test-watch": "mocha --watch \"**/test/*.spec.js\"",
     "lint": "eslint .",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "pre-push": "npm test"
   },
   "dependencies": {},
   "devDependencies": {
