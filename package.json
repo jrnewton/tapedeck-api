@@ -5,7 +5,8 @@
   "scripts": {
     "test": "mocha \"**/test/*.spec.js\"",
     "test-watch": "mocha --watch \"**/test/*.spec.js\"",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "postinstall": "husky install"
   },
   "dependencies": {},
   "devDependencies": {
