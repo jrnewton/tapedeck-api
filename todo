@@ -1,9 +1,0 @@
-- get URL and *then* determine authentication.  Store URL on client side.
-- authentication with magic link
-  - https://aws.amazon.com/blogs/mobile/implementing-passwordless-email-authentication-with-amazon-cognito/
-- CORS config for archive lambda
-- call lambda from Vue
-- store meta data with S3 items
-  - object path: email/file_name-<uuid>.mp3
-  - object meta: original source url, m3u metadata, user email
-- build archive page by calling S3 for list of objects
