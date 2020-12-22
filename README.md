@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/jrnewton/tapedeck-api.svg?style=svg)](https://circleci.com/gh/jrnewton/tapedeck-api)
+[![CircleCI](https://circleci.com/gh/jrnewton/tapedeck-api.svg?style=shield)](https://circleci.com/gh/jrnewton/tapedeck-api)
 
 # Tapedeck API
 
