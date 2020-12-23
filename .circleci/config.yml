@@ -5,5 +5,4 @@ workflows:
   test:
     jobs:
       - node/test:
-          parameters:
-            app-dir: "./functions/archive/"
+          app-dir: ./functions/archive/
