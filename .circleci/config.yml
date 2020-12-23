@@ -4,4 +4,6 @@ version: 2.1
 workflows:
   test:
     jobs:
-      - node/test
+      - node/test:
+          parameter:
+            app-dir: "./functions/archive/"
