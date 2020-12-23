@@ -9,12 +9,7 @@
     "postinstall": "npx husky install",
     "pre-push": "npm test"
   },
-  "dependencies": {
-    "aws-sdk": "^2.815.0",
-    "axios": "^0.21.1",
-    "parse-hls": "^1.0.7",
-    "uuid": "^8.3.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.9",
