@@ -9,7 +9,11 @@ Description: >
 Globals:
   Function:
     Timeout: 180 # is 3 minutes enough?
-
+  Api:
+    Cors:
+      AllowMethods: "'OPTIONS,GET'"
+      AllowHeaders: "'Content-Type'"
+      AllowOrigin: "'*'"
 Resources:
   ArchiveFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
