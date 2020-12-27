@@ -10,6 +10,11 @@ Globals:
   Function:
     Timeout: 180 # is 3 minutes enough?
   Api:
+    Auth:
+      ResourcePolicy:
+        IpRangeWhitelist:
+          # Use https://www.google.com/search?q=what+is+my+ip+address
+          -"108.20.224.86"
     Cors:
       AllowMethods: "'OPTIONS,GET'"
       AllowHeaders: "'Content-Type'"
