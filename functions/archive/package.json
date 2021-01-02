@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "archive.js",
   "scripts": {
+    "zip": "zip ../archive.zip -r *",
     "test": "mocha",
     "test-watch": "mocha --watch",
     "lint": "eslint ."
