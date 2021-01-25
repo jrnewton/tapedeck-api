@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tapedeck-staging-161221-authRole",
+      "UnauthRoleArn": "arn:aws:iam::336249122316:role/amplify-tapedeck-staging-161221-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::336249122316:role/amplify-tapedeck-staging-161221-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-tapedeck-staging-161221-deployment",
+      "UnauthRoleName": "amplify-tapedeck-staging-161221-unauthRole",
+      "StackName": "amplify-tapedeck-staging-161221",
+      "StackId": "arn:aws:cloudformation:us-east-2:336249122316:stack/amplify-tapedeck-staging-161221/1ae13730-5f28-11eb-81e8-0682e03c7bcc",
+      "AmplifyAppId": "d60f2yudm8wzk"
+    },
+    "categories": {
+      "auth": {
+        "tapedeck": {}
+      }
+    }
+  }
+}
