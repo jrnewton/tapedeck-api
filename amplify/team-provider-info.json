@@ -13,7 +13,12 @@
     },
     "categories": {
       "auth": {
-        "tapedeck": {}
+        "tapedecka856601e": {
+          "userPoolId": "us-east-2_qWWSu06kb",
+          "userPoolName": "tapedeck",
+          "webClientId": "4ngbb9lsqa61vq3dfc21c85k11",
+          "nativeClientId": "151ng2gto15nt3r6q36bdfb0g7"
+        }
       }
     }
   }
