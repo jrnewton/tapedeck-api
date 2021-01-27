@@ -10,6 +10,21 @@
       "StackName": "amplify-tapedeck-staging-161221",
       "StackId": "arn:aws:cloudformation:us-east-2:336249122316:stack/amplify-tapedeck-staging-161221/1ae13730-5f28-11eb-81e8-0682e03c7bcc",
       "AmplifyAppId": "d60f2yudm8wzk"
+    },
+    "categories": {
+      "function": {
+        "tapedeck93b096ac93b096acCustomMessage": {
+          "REDIRECTURL": "https://amplify.d60f2yudm8wzk.amplifyapp.com/",
+          "EMAILSUBJECT": "Please confirm your email for Tapedeck App",
+          "EMAILMESSAGE": "Click the following link to confirm your email:"
+        },
+        "tapedeck93b096ac93b096acPostConfirmation": {
+          "GROUP": "tapedeckuserpoolgrp"
+        }
+      },
+      "auth": {
+        "tapedeck93b096ac93b096ac": {}
+      }
     }
   }
 }
