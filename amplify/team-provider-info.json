@@ -12,18 +12,8 @@
       "AmplifyAppId": "d60f2yudm8wzk"
     },
     "categories": {
-      "function": {
-        "tapedeck93b096ac93b096acCustomMessage": {
-          "REDIRECTURL": "https://amplify.d60f2yudm8wzk.amplifyapp.com/",
-          "EMAILSUBJECT": "Please confirm your email for Tapedeck App",
-          "EMAILMESSAGE": "Click the following link to confirm your email:"
-        },
-        "tapedeck93b096ac93b096acPostConfirmation": {
-          "GROUP": "tapedeckuserpoolgrp"
-        }
-      },
       "auth": {
-        "tapedeck93b096ac93b096ac": {}
+        "tapedeck2111c900": {}
       }
     }
   }
