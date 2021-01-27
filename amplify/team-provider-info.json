@@ -10,16 +10,6 @@
       "StackName": "amplify-tapedeck-staging-161221",
       "StackId": "arn:aws:cloudformation:us-east-2:336249122316:stack/amplify-tapedeck-staging-161221/1ae13730-5f28-11eb-81e8-0682e03c7bcc",
       "AmplifyAppId": "d60f2yudm8wzk"
-    },
-    "categories": {
-      "auth": {
-        "tapedecka856601e": {
-          "userPoolId": "us-east-2_qWWSu06kb",
-          "userPoolName": "tapedeck",
-          "webClientId": "4ngbb9lsqa61vq3dfc21c85k11",
-          "nativeClientId": "151ng2gto15nt3r6q36bdfb0g7"
-        }
-      }
     }
   }
 }

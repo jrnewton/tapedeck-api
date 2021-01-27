@@ -1,11 +1,3 @@
 {
-  "auth": {
-    "tapedecka856601e": {
-      "service": "Cognito",
-      "serviceType": "imported",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
-    }
-  }
+  "auth": {}
 }
