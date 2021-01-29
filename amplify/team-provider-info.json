@@ -10,6 +10,11 @@
       "StackName": "amplify-tapedeckus-staging-20405",
       "StackId": "arn:aws:cloudformation:us-east-2:336249122316:stack/amplify-tapedeckus-staging-20405/4480f610-61d6-11eb-853c-02edb1810012",
       "AmplifyAppId": "d2b4x4xsmt4mil"
+    },
+    "categories": {
+      "auth": {
+        "tapedeckus": {}
+      }
     }
   }
 }
