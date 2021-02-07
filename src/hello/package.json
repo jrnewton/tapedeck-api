@@ -1,0 +1,17 @@
+{
+  "name": "tapedeck-hello-function",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "zip": "rm -f ../../dist/hello.zip && zip -r ../../dist/hello.zip .",
+    "upload": "aws lambda update-function-code --function-name  tapedeck-hello --zip-file fileb://../../dist/hello.zip"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.791.0",
+    "axios": "^0.21.0",
+    "debug": "^4.3.1",
+    "express": "^4.17.1",
+    "parse-hls": "^1.0.7"
+  },
+  "devDependencies": {}
+}
