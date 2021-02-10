@@ -4,3 +4,4 @@ node_trace.1.log
 out
 diff
 .aws-sam
+dist/
