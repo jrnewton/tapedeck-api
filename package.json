@@ -3,19 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "zip": "rm -f ./dist/archive.zip && cp ./src/hello.js ./dist/index.js && cd dist && zip ./archive.zip ./index.js",
-    "upload": "aws lambda update-function-code --function-name  tapedeck-hello --zip-file fileb://dist/archive.zip",
+    "upload-hello": "node upload.js -f tapedeck-hello -s src/hello/",
     "test": "mocha",
     "test-watch": "mocha --watch",
     "lint": "eslint .",
-    "pretty-all": "npx prettier --write ./functions/**/*.js"
+    "pretty-all": "npx prettier --write ./src/**/*.js"
   },
   "dependencies": {
-    "aws-sdk": "^2.791.0",
-    "axios": "^0.21.0",
-    "debug": "^4.3.1",
-    "express": "^4.17.1",
-    "parse-hls": "^1.0.7"
+    "@aws-sdk/client-lambda": "^3.4.1",
+    "adm-zip": "^0.5.2",
+    "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@types/mocha": "^8.2.0",
@@ -29,7 +26,6 @@
   "eslintConfig": {
     "root": true,
     "env": {
-      "commonjs": true,
       "es2020": true,
       "node": true,
       "mocha": true
