@@ -3,3 +3,11 @@
 # Tapedeck API
 
 Lambda functions deployed via AWS for [tapedeck](https://github.com/jrnewton/tapedeck).
+
+# Repo Structure
+
+This is a single repo containing multiple lambda functions.
+
+The root [package.json](package.json) contains editor settings, dev-dependencies and run scripts used to build/lint/upload all code.
+
+Each function resides in it's own directory under ./src/ and has it's own package definition which should contain runtime dependencies only.
