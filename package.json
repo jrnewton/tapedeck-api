@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "upload-hello": "node upload.js -f tapedeck-hello -s src/hello/",
-    "test": "mocha",
-    "test-watch": "mocha --watch",
+    "upload-hello": "node upload.js -f tapedeck-hello -s function/hello/",
+    "upload-archive": "node upload.js -f tapedeck-hello -s function/archive/",
     "lint": "eslint .",
-    "pretty-all": "npx prettier --write ./src/**/*.js"
+    "pretty-all": "npx prettier --write ./function/**/*.js"
   },
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.4.1",
