@@ -38,11 +38,11 @@ const getMP3URLs = (playlistItems) => {
   return playlistItems.filter((item) => item.uri.match(/\.mp3$/g));
 };
 
-const upload = async (resource, pass) => {
+const upload = async (desc, sub, resource, pass) => {
   console.log(`[upload] processing ${resource.uri}`);
 
-  //TODO: store meta and url
-  const key = `${uuid.v4()}.mp3`;
+  //TODO: better file name
+  const key = `${sub}/${uuid.v4()}.mp3`;
 
   AWS.config.getCredentials(function (err) {
     if (err) {
@@ -60,6 +60,9 @@ const upload = async (resource, pass) => {
   const params = {
     Bucket: 'tapedeck-archives',
     Key: key,
+    Metadata: {
+      'playlist-description': desc
+    },
     Body: pass
   };
 
@@ -88,11 +91,21 @@ const goodStatus = (count) => {
   };
 };
 
+/*
+  Event be like
+   {
+    "url": "https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u",
+    "desc": "A test file",
+    "sub": "DnHdKa1qSEuN70gBffDXj"
+   } 
+ */
 const handler = async (event, context) => {
   console.log('[handler] starting', event, context);
 
-  const url =
-    'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
+  const url = event.url;
+  const desc = event.desc;
+  const sub = event.sub;
+
   const maxFiles = 1;
   try {
     const res = await axios.get(url);
@@ -128,7 +141,7 @@ const handler = async (event, context) => {
         let pass = new stream.PassThrough();
         mp3Response.data.pipe(pass);
 
-        await upload(resource, pass);
+        await upload(desc, sub, resource, pass);
         console.log('[handler]', 'upload await is done');
       }
 
