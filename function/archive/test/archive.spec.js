@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const assert = require('assert');
-const archive = require('../index');
+const archive = require('../archive');
 
 it('should parse a simple m3u playlist without error', () => {
   const fileContents = fs.readFileSync(__dirname + '/test.m3u', 'utf-8');

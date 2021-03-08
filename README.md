@@ -8,6 +8,12 @@ Lambda functions deployed via AWS for [tapedeck](https://github.com/jrnewton/tap
 
 This is a single repo containing multiple lambda functions.
 
-The root [package.json](package.json) contains editor settings, dev-dependencies and run scripts used to build/lint/upload all code.
+The root [package.json](package.json) contains
 
-Each function resides in it's own directory under ./src/ and has it's own package definition which should contain dev dependencies for testing the code and dependencies for running the code.
+- editor settings
+- dev-dependencies and npm scripts used to lint/build/test all functions.
+
+Each function
+
+- resides in it's own directory under ./function/
+- has it's own package file with runtime dependencies
