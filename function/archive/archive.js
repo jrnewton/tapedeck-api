@@ -88,7 +88,9 @@ const goodStatus = (count) => {
   };
 };
 
-const handler = async () => {
+const handler = async (event, context) => {
+  console.log('[handler] starting', event, context);
+
   const url =
     'https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.m3u';
   const maxFiles = 1;
@@ -139,7 +141,8 @@ const handler = async () => {
   }
 };
 
-exports.lambdaHandler = handler;
+//THE entry point for lambda
+exports.handler = handler;
 
 //For unit tests
 module.exports.parseM3UFile = parseM3UFile;
