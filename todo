@@ -1,9 +1,0 @@
-- UI: capture optional description.
-- API and Lambda to save url, domain, description, cognito id in dynamo.
-- Dynamo Trigger lambda to save mp3 in S3 with cognito id prefix. 
-- S3 trigger lambda to update dynamo with s3 url for resource. 
-- API to fetch all recordings for user (cognito ID)
-- API to stream a single recording from S3. 
-- UI: Enhance login flow to use Vue routes and other stuff in course 
-- UI: make it look like a tape deck?
-- UI: show all recordings 
