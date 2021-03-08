@@ -1,7 +1,7 @@
-node_modules
+node_modules/
+dist/
 *.swp
 node_trace.1.log
 out
 diff
 .aws-sam
-dist/
