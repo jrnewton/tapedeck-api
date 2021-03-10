@@ -102,7 +102,12 @@ const goodStatus = (count) => {
 const handler = async (event, context) => {
   console.log('[handler] starting', event, context);
 
+  //Based on testing, I believe event is a proxy object
+  //and that lambda will perform validation when you access
+  //properties
   const url = event.url;
+  console.log('url is', url);
+
   const desc = event.desc;
   const sub = event.sub;
 
