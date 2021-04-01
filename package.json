@@ -5,7 +5,6 @@
   "scripts": {
     "postinstall": "npm run hello:install && npm run archive:install",
     "lint": "eslint .",
-    "test": "mocha function/**/*spec.js",
     "pretty-all": "npx prettier --write ./function/**/*.js",
     "fninstall": "cd ./function/${FN}/ && npm install",
     "pkg": "rm -rf ./dist/${FN}/ && mkdir -p ./dist/${FN}/ && cp -f ./function/${FN}/package*.json ./dist/${FN}/ && cp -f ./function/${FN}/${FN}.js ./dist/${FN}/index.js && cd ./dist/${FN}/ && npm install --only=production && zip -r function.zip index.js node_modules",
@@ -23,7 +22,6 @@
   "devDependencies": {
     "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.9",
-    "mocha": "^8.2.1",
     "eslint": "^7.16.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",

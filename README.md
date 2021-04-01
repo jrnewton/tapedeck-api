@@ -10,10 +10,10 @@ This is a single repo containing multiple lambda functions.
 
 The root [package.json](package.json) contains
 
-- editor settings
-- dev-dependencies and npm scripts used to lint/build/test all functions.
+- editor settings and related dev-dependencies
 
 Each function
 
 - resides in it's own directory under ./function/
 - has it's own package file with runtime dependencies
+  and dev-dependencies used to test/lint.
