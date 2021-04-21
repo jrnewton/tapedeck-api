@@ -11,6 +11,7 @@ const stream = require('stream');
 const uuid = require('uuid');
 const AWS = require('aws-sdk');
 const HLS = require('parse-hls').default;
+const { region, bucket } = require('../awsconfig.js');
 
 AWS.config.logger = console;
 
@@ -54,11 +55,11 @@ const upload = async (desc, sub, resource, pass) => {
 
   const s3 = new AWS.S3({
     apiVersion: '2006-03-01',
-    region: 'us-east-2'
+    region: region
   });
 
   const params = {
-    Bucket: 'tapedeck-archives',
+    Bucket: bucket,
     Key: key,
     Metadata: {
       'playlist-description': desc

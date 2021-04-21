@@ -1,8 +1,7 @@
 'use strict';
 
 const AWS = require('aws-sdk');
-
-const region = 'us-east-2';
+const { region, bucket } = require('../awsconfig.js');
 
 exports.handler = async (event) => {
   const sub = event.sub || 'not-defined';
@@ -17,7 +16,7 @@ exports.handler = async (event) => {
   });
 
   const params = {
-    Bucket: 'tapedeck-archives',
+    Bucket: bucket,
     Prefix: sub
   };
 
