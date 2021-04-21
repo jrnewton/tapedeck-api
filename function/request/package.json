@@ -1,0 +1,10 @@
+{
+  "name": "tapedeck-request-function",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.13.0",
+    "aws-sdk": "^2.791.0",
+    "ulid": "^2.3.0"
+  }
+}
