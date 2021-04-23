@@ -11,7 +11,9 @@ const stream = require('stream');
 const uuid = require('uuid');
 const AWS = require('aws-sdk');
 const HLS = require('parse-hls').default;
-const { region, bucket } = require('../awsconfig.js');
+
+const region = 'us-east-2';
+const bucket = 'tapedeck-archives';
 
 AWS.config.logger = console;
 

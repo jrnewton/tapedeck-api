@@ -7,7 +7,9 @@ const HLS = require('parse-hls').default;
 
 const ulid = require('ulid').ulid;
 const { DynamoDBClient, PutItemCommand } = require('@aws-sdk/client-dynamodb');
-const { region, table } = require('../awsconfig.js');
+
+const region = 'us-east-2';
+const table = 'tapedeck-20210421';
 
 const client = new DynamoDBClient({
   region: region,
