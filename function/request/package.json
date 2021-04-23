@@ -2,9 +2,18 @@
   "name": "tapedeck-request-function",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "test": "mocha test/*.spec.js",
+    "e2e": "mocha test/*.e2e.js"
+  },
+  "devDependencies": {
+    "mocha": "^8.3.2"
+  },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.13.0",
     "aws-sdk": "^2.791.0",
+    "axios": "^0.21.1",
+    "parse-hls": "^1.0.7",
     "ulid": "^2.3.0"
   }
 }

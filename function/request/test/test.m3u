@@ -1,5 +1,7 @@
 #EXTM3U
-#EXTINF:27,test
+#EXTINF:27,track1
 https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3
-#EXTINF:27,example
+#EXTINF:27,track2
+https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test.mp3
+#EXTINF:27,track3
 https://example.com/files/example.mp4

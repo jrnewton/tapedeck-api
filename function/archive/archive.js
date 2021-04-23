@@ -161,7 +161,7 @@ const handler = async (event, context) => {
 };
 
 //THE entry point for lambda
-exports.handler = handler;
+module.exports.handler = handler;
 
 //For unit tests
 module.exports.parseM3UFile = parseM3UFile;
