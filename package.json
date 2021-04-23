@@ -9,18 +9,14 @@
     "fninstall": "cd ./function/${FN}/ && npm install",
     "pkg": "rm -rf ./dist/${FN}/ && mkdir -p ./dist/${FN}/ && cp -f ./function/${FN}/package*.json ./dist/${FN}/ && cp -f ./function/${FN}/${FN}.js ./dist/${FN}/index.js && cd ./dist/${FN}/ && npm install --only=production && zip -r function.zip index.js node_modules",
     "upload": "aws lambda update-function-code --function-name tapedeck-${FN} --zip-file fileb://dist/${FN}/function.zip",
-    "list:install": "FN=list npm run fninstall",
-    "list:pkg": "FN=list npm run pkg",
-    "list:upload": "FN=list npm run upload",
-    "list:build": "npm run list:pkg && npm run list:upload",
     "request:install": "FN=request npm run fninstall",
     "request:pkg": "FN=request npm run pkg",
     "request:upload": "FN=request npm run upload",
-    "request:build": "npm run request:pkg && npm run request:upload",
+    "request:deploy": "npm run request:pkg && npm run request:upload",
     "archive:install": "FN=archive npm run fninstall",
     "archive:pkg": "FN=archive npm run pkg",
     "archive:upload": "FN=archive npm run upload",
-    "archive:build": "npm run archive:pkg && npm run archive:upload"
+    "archive:deploy": "npm run archive:pkg && npm run archive:upload"
   },
   "dependencies": {},
   "devDependencies": {

@@ -1,8 +1,0 @@
-{
-  "name": "tapedeck-list-function",
-  "version": "1.0.0",
-  "private": true,
-  "dependencies": {
-    "aws-sdk": "^2.791.0"
-  }
-}
