@@ -4,17 +4,20 @@
    see https://github.com/axios/axios/issues/1975 */
 const axios = require('axios').default;
 const HLS = require('parse-hls').default;
-
 const ulid = require('ulid').ulid;
 const { DynamoDBClient, PutItemCommand } = require('@aws-sdk/client-dynamodb');
+const { SNSClient, PublishCommand } = require('@aws-sdk/client-sns');
 
 const region = 'us-east-2';
 const table = 'tapedeck-20210421';
+const topic = 'arn:aws:sns:us-east-2:336249122316:tapedeck-archive-request';
 
-const client = new DynamoDBClient({
+const ddbClient = new DynamoDBClient({
   region: region,
   logger: console
 });
+
+const snsClient = new SNSClient({ region: region });
 
 const badStatus = (errorString) => {
   return {
@@ -73,6 +76,68 @@ function buildResourceListFromPlaylist(fileContents, resourceTemplate = {}) {
   return filteredSegments;
 }
 
+const putItem = async (pk, sk, resource) => {
+  const putItemParams = {
+    TableName: table,
+    Item: {
+      PK: {
+        S: pk
+      },
+      SK: {
+        S: sk
+      },
+      ParentURL: {
+        S: resource.parentUrl || ''
+      },
+      URL: {
+        S: resource.url
+      },
+      Desc: {
+        S: resource.desc || ''
+      },
+      Title: {
+        S: resource.title || ''
+      },
+      Status: {
+        S: 'download-pending'
+      }
+    }
+  };
+
+  const publishParams = {
+    TopicArn: topic,
+    Message: JSON.stringify({
+      PK: pk,
+      SK: sk,
+      url: resource.url
+    })
+  };
+
+  try {
+    console.log('PutItem params', putItemParams);
+    const putItemResponse = await ddbClient.send(
+      new PutItemCommand(putItemParams)
+    );
+    console.log('PutItem response', putItemResponse);
+  } catch (error) {
+    console.error('PutItem error', error);
+    throw error;
+  }
+
+  try {
+    console.log('publish params', publishParams);
+    const publishResponse = await snsClient.send(
+      new PublishCommand(publishParams)
+    );
+    console.log('publish response', publishResponse);
+  } catch (error) {
+    console.error('publish error', error);
+    throw error;
+  }
+
+  return { pk, sk };
+};
+
 //reject promise when status != 200
 const validateStatus = (status) => {
   return status === 200;
@@ -95,7 +160,7 @@ const handler = async (event) => {
     //TODO: match aliases as well?
 
     const headResponse = await axios.head(url, { validateStatus });
-    console.log('[handler] headers:', JSON.stringify(headResponse.headers));
+    console.log('headers:', JSON.stringify(headResponse.headers));
     const contentType = headResponse.headers['content-type'];
 
     //mp3 file
@@ -120,14 +185,14 @@ const handler = async (event) => {
       );
     } else {
       const msg = `Unsupported content-type for ${url}, content-type=${contentType}`;
-      console.log('[handler]', msg);
+      console.error(msg);
       return badStatus(msg);
     }
 
-    console.log('[handler] resources:', JSON.stringify(resources));
+    console.log('resources:', JSON.stringify(resources));
 
     //Persist the list of resources to DynamoDB.
-    //A DDB event will trigger the transfer into S3.
+    //And publish a message to SNS to trigger S3 upload.
 
     //Return an array of keys to the caller.
     const itemKeys = [];
@@ -139,43 +204,7 @@ const handler = async (event) => {
       //SortKey is ULID + index if there are multiple resources from a playlist.
       const sk = ulid() + '#' + index++;
 
-      const params = {
-        TableName: table,
-        Item: {
-          PK: {
-            S: pk
-          },
-          SK: {
-            S: sk
-          },
-          ParentURL: {
-            S: resource.parentUrl || ''
-          },
-          URL: {
-            S: resource.url
-          },
-          Desc: {
-            S: resource.desc || ''
-          },
-          Title: {
-            S: resource.title || ''
-          },
-          Status: {
-            S: 'download-pending'
-          }
-        }
-      };
-
-      try {
-        const key = { pk, sk };
-        console.debug('PutItem params', params);
-        const response = await client.send(new PutItemCommand(params));
-        console.debug('PutItem response', response);
-        itemKeys.push(key);
-      } catch (error) {
-        console.error('PutItem error', error);
-        throw error;
-      }
+      itemKeys.push(putItem(pk, sk, resource));
     }
 
     return goodStatus(itemKeys);
@@ -189,7 +218,7 @@ const handler = async (event) => {
       msg = JSON.stringify(error);
     }
 
-    console.log('[handler] caught an error', msg);
+    console.error('caught an error', msg);
     return badStatus(msg);
   }
 };
