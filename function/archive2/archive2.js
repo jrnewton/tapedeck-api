@@ -32,12 +32,6 @@ const validateStatus = (status) => {
 const handler = async (event) => {
   console.log('starting', event);
 
-  //Lambda gotcha
-  //Based on testing, I believe event is a JS proxy object
-  //and that lambda will perform validation when you access
-  //properties.  If you access a property that doesn't exist
-  //then your lambda invocation will fail.
-
   for (const { messageId, body } of event.Records) {
     console.log('processing message', messageId);
     try {
