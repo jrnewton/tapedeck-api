@@ -1,0 +1,8 @@
+{
+  "name": "process-ddb-stream",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "aws-sdk": "^2.892.0"
+  }
+}
