@@ -1,9 +1,5 @@
 'use strict';
 
-//TODO:
-//https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3/ManagedUpload.html
-//https://nodejs.org/dist/latest/docs/api/stream.html#stream_object_mode
-
 /* use '.default' otherwise you'll get a tslint warning
    see https://github.com/axios/axios/issues/1975 */
 const axios = require('axios').default;
@@ -63,9 +59,11 @@ const handler = async (event) => {
       const params = {
         Bucket: bucket,
         Key: key,
-        // Metadata: {
-        //   'playlist-description': desc
-        // },
+        //prettier-ignore
+        Metadata: {
+          'PK': request.PK,
+          'SK': request.SK
+        },
         Body: pass
       };
 
