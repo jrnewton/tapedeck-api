@@ -26,28 +26,29 @@ const validateStatus = (status) => {
 };
 
 /*
-  event is from SNS.
-  Key payload is event.Records[i].Sns.Message which has format:
+  Event is from SQS.  Record.body will look like: 
   {
-    url: <string>,
-    pk:  <string>,
-    sk:  <string>
+    PK: <string>,
+    SK:  <string>,
+    URL:  <string>
   }
 */
 const handler = async (event) => {
   console.log('starting', event);
 
+  //Lambda gotcha
   //Based on testing, I believe event is a JS proxy object
   //and that lambda will perform validation when you access
   //properties.  If you access a property that doesn't exist
   //then your lambda invocation will fail.
 
-  for (const r of event.Records) {
+  for (const { messageId, body } of event.Records) {
+    console.log('processing message', messageId);
     try {
-      const msg = JSON.parse(r.Sns.Message);
-      console.log('processing message', msg);
+      console.log('request', body);
+      const request = JSON.parse(body);
 
-      let mp3Response = await axios.get(msg.url, {
+      let mp3Response = await axios.get(request.URL, {
         validateStatus,
         responseType: 'stream'
       });
@@ -57,7 +58,7 @@ const handler = async (event) => {
       let pass = new stream.PassThrough();
       mp3Response.data.pipe(pass);
 
-      const key = `${msg.pk}/${msg.sk}.mp3`;
+      const key = `${request.PK}/${request.SK}.mp3`;
 
       const params = {
         Bucket: bucket,

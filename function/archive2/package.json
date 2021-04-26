@@ -2,8 +2,10 @@
   "name": "tapedeck-archive-function",
   "version": "1.0.0",
   "private": true,
+  "devDependencies": {
+    "aws-sdk": "^2.791.0"
+  },
   "dependencies": {
-    "aws-sdk": "^2.791.0",
     "axios": "^0.21.1"
   }
 }

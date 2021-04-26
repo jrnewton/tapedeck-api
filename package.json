@@ -16,10 +16,10 @@
     "process-ddb-stream:pkg": "FN=process-ddb-stream npm run pkg",
     "process-ddb-stream:upload": "FN=process-ddb-stream npm run upload",
     "process-ddb-stream:build": "npm run process-ddb-stream:install && npm run process-ddb-stream:pkg && npm run process-ddb-stream:upload",
-    "archive:install": "FN=archive npm run fninstall",
-    "archive:pkg": "FN=archive npm run pkg",
-    "archive:upload": "FN=archive npm run upload",
-    "archive:build": "npm run archive:install && npm run archive:pkg && npm run archive:upload"
+    "archive2:install": "FN=archive2 npm run fninstall",
+    "archive2:pkg": "FN=archive2 npm run pkg",
+    "archive2:upload": "FN=archive2 npm run upload",
+    "archive2:build": "npm run archive2:install && npm run archive2:pkg && npm run archive2:upload"
   },
   "dependencies": {},
   "devDependencies": {
