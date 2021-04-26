@@ -6,18 +6,14 @@ const axios = require('axios').default;
 const HLS = require('parse-hls').default;
 const ulid = require('ulid').ulid;
 const { DynamoDBClient, PutItemCommand } = require('@aws-sdk/client-dynamodb');
-const { SNSClient, PublishCommand } = require('@aws-sdk/client-sns');
 
 const region = 'us-east-2';
 const table = 'tapedeck-20210421';
-const topic = 'arn:aws:sns:us-east-2:336249122316:tapedeck-archive-request';
 
 const ddbClient = new DynamoDBClient({
   region: region,
   logger: console
 });
-
-const snsClient = new SNSClient({ region: region });
 
 const badStatus = (errorString) => {
   return {
@@ -104,38 +100,17 @@ const putItem = async (pk, sk, resource) => {
     }
   };
 
-  const publishParams = {
-    TopicArn: topic,
-    Message: JSON.stringify({
-      PK: pk,
-      SK: sk,
-      url: resource.url
-    })
-  };
-
   try {
     console.log('PutItem params', putItemParams);
     const putItemResponse = await ddbClient.send(
       new PutItemCommand(putItemParams)
     );
     console.log('PutItem response', putItemResponse);
+    return { pk, sk };
   } catch (error) {
     console.error('PutItem error', error);
     throw error;
   }
-
-  try {
-    console.log('publish params', publishParams);
-    const publishResponse = await snsClient.send(
-      new PublishCommand(publishParams)
-    );
-    console.log('publish response', publishResponse);
-  } catch (error) {
-    console.error('publish error', error);
-    throw error;
-  }
-
-  return { pk, sk };
 };
 
 //reject promise when status != 200
@@ -192,7 +167,6 @@ const handler = async (event) => {
     console.log('resources:', JSON.stringify(resources));
 
     //Persist the list of resources to DynamoDB.
-    //And publish a message to SNS to trigger S3 upload.
 
     //Return an array of keys to the caller.
     const itemKeys = [];
