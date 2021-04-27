@@ -1,3 +1,9 @@
+//This is attached to the archive REST endpoint.
+//It is responsible for initial validation of the URL
+//and splitting up m3u playlist contents (if provided).
+//It will result in one or more items be written to DynamoDB
+//with status = 'download-pending'.
+
 'use strict';
 
 /* use '.default' otherwise you'll get a tslint warning
@@ -7,6 +13,7 @@ const HLS = require('parse-hls').default;
 const ulid = require('ulid').ulid;
 const { DynamoDBClient, PutItemCommand } = require('@aws-sdk/client-dynamodb');
 
+const itemStatus = 'download-pending';
 const region = 'us-east-2';
 const table = 'tapedeck-20210421';
 
@@ -72,15 +79,18 @@ function buildResourceListFromPlaylist(fileContents, resourceTemplate = {}) {
   return filteredSegments;
 }
 
-const putItem = async (pk, sk, resource) => {
+const putItem = async (PK, SK, resource) => {
   const putItemParams = {
     TableName: table,
     Item: {
       PK: {
-        S: pk
+        S: PK
       },
       SK: {
-        S: sk
+        S: SK
+      },
+      CreateDate: {
+        S: new Date().toISOString()
       },
       ParentURL: {
         S: resource.parentUrl || ''
@@ -95,7 +105,22 @@ const putItem = async (pk, sk, resource) => {
         S: resource.title || ''
       },
       Status: {
-        S: 'download-pending'
+        S: itemStatus
+      },
+      LastModified: {
+        S: ''
+      },
+      LastDownloadDate: {
+        S: ''
+      },
+      DownloadCount: {
+        N: '0'
+      },
+      S3URL: {
+        S: ''
+      },
+      S3Size: {
+        N: '0'
       }
     }
   };
@@ -106,7 +131,7 @@ const putItem = async (pk, sk, resource) => {
       new PutItemCommand(putItemParams)
     );
     console.log('PutItem response', putItemResponse);
-    return { pk, sk };
+    return { PK, SK };
   } catch (error) {
     console.error('PutItem error', error);
     throw error;
@@ -173,12 +198,12 @@ const handler = async (event) => {
     let index = 0;
     for (const resource of resources.slice(0, maxResourcesToCapture)) {
       //PartitionKey is the auth subject.
-      const pk = event.sub;
+      const PK = 'user#' + event.sub;
 
       //SortKey is ULID + index if there are multiple resources from a playlist.
-      const sk = ulid() + '#' + index++;
+      const SK = 'ulid#' + ulid() + '#' + index++;
 
-      itemKeys.push(putItem(pk, sk, resource));
+      itemKeys.push(putItem(PK, SK, resource));
     }
 
     return goodStatus(itemKeys);
