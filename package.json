@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "cd ./function/request && npm install && cd ../process-ddb-stream && npm install && cd ../archive2 && npm install && cd ../process-s3 && npm install",
     "lint": "eslint .",
     "pretty-all": "npx prettier --write ./function/**/*.js",
     "pkg": "rm -rf ./dist/${FN}/ && mkdir -p ./dist/${FN}/ && cp -f ./function/${FN}/package*.json ./dist/${FN}/ && cp -f ./function/${FN}/${FN}.js ./dist/${FN}/index.js && cd ./dist/${FN}/ && npm install --production && zip -r function.zip index.js node_modules",
@@ -14,7 +13,6 @@
     "process-s3:build": "FN=process-s3 npm run process-s3:pkg && npm run process-s3:upload",
     "all:build": "npm run request:build && npm run process-ddb-stream:build && npm run archive2:build && npm run process-s3:build"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.9",
