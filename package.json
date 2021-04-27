@@ -19,7 +19,11 @@
     "archive2:install": "FN=archive2 npm run fninstall",
     "archive2:pkg": "FN=archive2 npm run pkg",
     "archive2:upload": "FN=archive2 npm run upload",
-    "archive2:build": "npm run archive2:install && npm run archive2:pkg && npm run archive2:upload"
+    "archive2:build": "npm run archive2:install && npm run archive2:pkg && npm run archive2:upload",
+    "process-s3:install": "FN=process-s3 npm run fninstall",
+    "process-s3:pkg": "FN=process-s3 npm run pkg",
+    "process-s3:upload": "FN=process-s3 npm run upload",
+    "process-s3:build": "npm run process-s3:install && npm run process-s3:pkg && npm run process-s3:upload"
   },
   "dependencies": {},
   "devDependencies": {
