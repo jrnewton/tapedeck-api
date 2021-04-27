@@ -1,3 +1,7 @@
+//Convert INSERT events from our DynamoDB table
+//into SQS messages to be processed by the
+//archive2 function.
+
 'use strict';
 
 const sqsQueueUrl =
@@ -5,6 +9,8 @@ const sqsQueueUrl =
 
 //use the old SDK because it's included by default in lambda runtimes.
 const AWS = require('aws-sdk');
+
+AWS.config.logger = console;
 
 const sqs = new AWS.SQS({
   apiVersion: '2012-11-05'
@@ -54,11 +60,11 @@ exports.handler = async (event) => {
 
         i++;
       } catch (error) {
-        console.log('sendMessage error', error);
+        console.error('sendMessage error', error);
         throw error;
       }
     } else {
-      console.log('`skip event', record.eventID, record.eventName);
+      console.log('skip event', record.eventID, record.eventName);
     }
   }
 
