@@ -23,7 +23,8 @@
     "process-s3:install": "FN=process-s3 npm run fninstall",
     "process-s3:pkg": "FN=process-s3 npm run pkg",
     "process-s3:upload": "FN=process-s3 npm run upload",
-    "process-s3:build": "npm run process-s3:install && npm run process-s3:pkg && npm run process-s3:upload"
+    "process-s3:build": "npm run process-s3:install && npm run process-s3:pkg && npm run process-s3:upload",
+    "all:build": "npm run request:build && npm run process-ddb-stream:build && npm run archive2:build && npm run process-s3:build"
   },
   "dependencies": {},
   "devDependencies": {
