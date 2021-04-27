@@ -196,12 +196,16 @@ const handler = async (event) => {
     //Return an array of keys to the caller.
     const itemKeys = [];
     let index = 0;
+
     for (const resource of resources.slice(0, maxResourcesToCapture)) {
       //PartitionKey is the auth subject.
       const PK = 'user#' + event.sub;
 
-      //SortKey is ULID + index if there are multiple resources from a playlist.
-      const SK = 'ulid#' + ulid() + '#' + index++;
+      //remember to pad numbers for DDB to ensure lexi sort.  This will give 0-999.
+      const trackIndex = (++index + '').padStart(3, '0');
+
+      //SortKey is index#ULID in case there are multiple resources from a playlist.
+      const SK = `track#${trackIndex}#${ulid()}`;
 
       itemKeys.push(putItem(PK, SK, resource));
     }
