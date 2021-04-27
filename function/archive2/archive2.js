@@ -1,3 +1,6 @@
+//Process SQS events each representing a resource to archive.
+//Stream the resource from it's location into our S3 bucket.
+
 'use strict';
 
 /* use '.default' otherwise you'll get a tslint warning
@@ -6,14 +9,12 @@ const axios = require('axios').default;
 const stream = require('stream');
 const AWS = require('aws-sdk');
 
-const region = 'us-east-2';
 const bucket = 'tapedeck-archives';
 
 AWS.config.logger = console;
 
 const s3 = new AWS.S3({
-  apiVersion: '2006-03-01',
-  region: region
+  apiVersion: '2006-03-01'
 });
 
 //reject promise when status != 200
@@ -67,7 +68,7 @@ const handler = async (event) => {
       console.log('finished write to s3', data);
       return JSON.stringify({ status: 200 });
     } catch (error) {
-      console.log('caught an error', error);
+      console.error('caught an error', error);
       throw error;
     }
   }
