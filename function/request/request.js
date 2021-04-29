@@ -208,7 +208,9 @@ const handler = async (event) => {
       //SortKey is index#ULID in case there are multiple resources from a playlist.
       const SK = `track#${trackIndex}#${ulid()}`;
 
-      itemKeys.push(putItem(PK, SK, resource));
+      const key = await putItem(PK, SK, resource);
+      console.log('putItem key', key);
+      itemKeys.push(key);
     }
 
     return goodStatus(itemKeys);
