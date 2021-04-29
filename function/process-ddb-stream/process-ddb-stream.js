@@ -16,7 +16,25 @@ const sqs = new AWS.SQS({
   apiVersion: '2012-11-05'
 });
 
-exports.handler = async (event) => {
+const convertInsertRecord = (record) => {
+  console.log('processing record: %j', record.dynamodb);
+
+  const PK = record.dynamodb.NewImage.PK.S;
+  const SK = record.dynamodb.NewImage.SK.S;
+  const URL = record.dynamodb.NewImage.URL.S;
+
+  const msg = {
+    PK,
+    SK,
+    URL
+  };
+
+  console.log('queue msg', msg);
+
+  return msg;
+};
+
+const handler = async (event) => {
   console.log('record count', event.Records.length);
 
   //console.log('Received event:', JSON.stringify(event, null, 2));
@@ -24,19 +42,7 @@ exports.handler = async (event) => {
   let i = 0;
   for (const record of event.Records) {
     if (record.eventName === 'INSERT') {
-      console.log('processing record: %j', record.dynamodb);
-
-      const PK = record.dynamodb.NewImage.PK.S;
-      const SK = record.dynamodb.NewImage.SK.S;
-      const URL = record.dynamodb.NewImage.URL.S;
-
-      const msg = {
-        PK,
-        SK,
-        URL
-      };
-
-      console.log('queue msg', msg);
+      const msg = convertInsertRecord(record);
 
       const params = {
         MessageBody: JSON.stringify(msg),
@@ -68,5 +74,14 @@ exports.handler = async (event) => {
     }
   }
 
-  return `Processed records: ${i}`;
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      count: i
+    })
+  };
 };
+
+exports.handler = handler;
+//for unit test
+exports.convertInsertRecord = convertInsertRecord;
