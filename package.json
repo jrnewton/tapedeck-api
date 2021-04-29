@@ -5,13 +5,11 @@
   "scripts": {
     "lint": "eslint .",
     "pretty-all": "npx prettier --write ./function/**/*.js",
-    "pkg": "rm -rf ./dist/${FN}/ && mkdir -p ./dist/${FN}/ && cp -f ./function/${FN}/package*.json ./dist/${FN}/ && cp -f ./function/${FN}/${FN}.js ./dist/${FN}/index.js && cd ./dist/${FN}/ && npm install --production && zip -r function.zip index.js node_modules",
-    "upload": "aws lambda update-function-code --function-name tapedeck-${FN} --zip-file fileb://dist/${FN}/function.zip",
-    "request:build": "FN=request npm run request:pkg && npm run request:upload",
-    "process-ddb-stream:build": "FN=process-ddb-stream npm run process-ddb-stream:pkg && npm run process-ddb-stream:upload",
-    "archive2:build": "FN=archive2 npm run archive2:pkg && npm run archive2:upload",
-    "process-s3:build": "FN=process-s3 npm run process-s3:pkg && npm run process-s3:upload",
-    "all:build": "npm run request:build && npm run process-ddb-stream:build && npm run archive2:build && npm run process-s3:build"
+    "request:deploy": "FN=request ./pkg.sh && FN=request ./upload.sh",
+    "process-ddb-stream:deploy": "FN=process-ddb-stream ./pkg.sh && FN=process-ddb-stream ./upload.sh",
+    "archive2:deploy": "FN=archive2 ./pkg.sh && FN=archive2 ./upload.sh",
+    "process-s3:deploy": "FN=process-s3 ./pkg.sh && FN=process-s3 ./upload.sh",
+    "deploy": "npm run request:build && npm run process-ddb-stream:build && npm run archive2:build && npm run process-s3:build"
   },
   "devDependencies": {
     "@types/mocha": "^8.2.0",
