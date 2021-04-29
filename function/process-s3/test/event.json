@@ -1,0 +1,39 @@
+{
+  "Records": [
+    {
+      "eventVersion": "2.1",
+      "eventSource": "aws:s3",
+      "awsRegion": "us-east-2",
+      "eventTime": "2021-04-29T20:31:53.557Z",
+      "eventName": "ObjectCreated:Put",
+      "userIdentity": {
+        "principalId": "AWS:AIDAU4SQCNYGP52XIRCLR"
+      },
+      "requestParameters": {
+        "sourceIPAddress": "108.20.224.86"
+      },
+      "responseElements": {
+        "x-amz-request-id": "2MR8FH88HT69CW8M",
+        "x-amz-id-2": "oPGkROBRmIseQEiy+nlSS0mpIzbJ6OtuP7yKLm7tiWZamDhQ+VNgJZOAbF9GB+PJRPNcVP8PBsdL31Ftj39Vsb0sGR/huZoE+qC2jF0ghA4="
+      },
+      "s3": {
+        "s3SchemaVersion": "1.0",
+        "configurationId": "abcb7daa-1f86-4f0b-aa6f-336d4ce429a8",
+        "bucket": {
+          "name": "tapedeck-archives",
+          "ownerIdentity": {
+            "principalId": "A29PW82YENFAFI"
+          },
+          "arn": "arn:aws:s3:::tapedeck-archives"
+        },
+        "object": {
+          "key": "d6ade639-bada-4ea2-9381-52c9d625cec2/1ebc2c3d-9972-4ce8-9fa2-b76b7babb44c+%282%29.mp3",
+          "size": 764176,
+          "eTag": "0c481e87f2774b1bd41a0a70d9b70d11",
+          "versionId": "UcMyLfJa0qGB3_YVSCkWRzKsRgS5Yetp",
+          "sequencer": "00608B17C4384F4C50"
+        }
+      }
+    }
+  ]
+}

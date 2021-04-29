@@ -24,6 +24,7 @@ const ddbClient = new DynamoDBClient({
 });
 
 exports.handler = async (event) => {
+  console.log('event', JSON.stringify(event, null, 2));
   console.log('record count', event.Records.length);
 
   let i = 0;
@@ -117,5 +118,10 @@ exports.handler = async (event) => {
     }
   }
 
-  return `Processed records: ${i}`;
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      count: i
+    })
+  };
 };
