@@ -148,6 +148,7 @@ const maxResourcesToCapture = 3;
 const handler = async (event) => {
   const url = event.url;
   const desc = event.desc;
+  const sub = event.sub;
 
   /*
     { url, desc, title, parentUrl }
@@ -199,7 +200,7 @@ const handler = async (event) => {
 
     for (const resource of resources.slice(0, maxResourcesToCapture)) {
       //PartitionKey is the auth subject.
-      const PK = 'user#' + event.sub;
+      const PK = 'user#' + sub;
 
       //remember to pad numbers for DDB to ensure lexi sort.  This will give 0-999.
       const trackIndex = (++index + '').padStart(3, '0');
