@@ -6,3 +6,5 @@ workflows:
     jobs:
       - node/test:
           app-dir: ./function/request/
+      - node/test:
+          app-dir: ./function/process-ddb-stream/
