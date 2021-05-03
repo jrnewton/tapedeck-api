@@ -10,5 +10,5 @@ it('end to end test', async () => {
   console.log('response', response);
   assert.strictEqual(response.statusCode, 200);
   const body = JSON.parse(response.body);
-  assert.strictEqual(body.count, 2);
+  assert.strictEqual(body.count, 1);
 });
