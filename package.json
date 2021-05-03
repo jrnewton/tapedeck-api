@@ -9,7 +9,7 @@
     "process-ddb-stream:deploy": "FN=process-ddb-stream ./pkg.sh && FN=process-ddb-stream ./upload.sh",
     "archive2:deploy": "FN=archive2 ./pkg.sh && FN=archive2 ./upload.sh",
     "process-s3:deploy": "FN=process-s3 ./pkg.sh && FN=process-s3 ./upload.sh",
-    "deploy": "npm run request:build && npm run process-ddb-stream:build && npm run archive2:build && npm run process-s3:build"
+    "deploy": "npm run request:deploy && npm run process-ddb-stream:deploy && npm run archive2:deploy && npm run process-s3:deploy"
   },
   "devDependencies": {
     "@types/mocha": "^8.2.0",
