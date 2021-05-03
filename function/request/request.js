@@ -104,7 +104,7 @@ const putItem = async (PK, SK, resource) => {
       Title: {
         S: resource.title || ''
       },
-      Status: {
+      ItemStatus: {
         S: itemStatus
       },
       LastModified: {
