@@ -9,7 +9,7 @@
     }
   },
   "NewImage": {
-    "Status": {
+    "ItemStatus": {
       "S": "download-pending"
     },
     "S3URL": {
