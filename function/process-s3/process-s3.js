@@ -1,6 +1,5 @@
 //Process S3 events that are driven once an object has been uploaded to our bucket.
 //Update our DynamoDB table with relavent information about said object.
-//The S3 events are queued into an SQS queue to make them observable.
 
 'use strict';
 
@@ -50,10 +49,12 @@ exports.handler = async (event) => {
       let Metadata = null;
 
       try {
-        const s3Response = await s3.getObject(params).promise();
-        Metadata = s3Response.Metadata;
+        console.log('geting head object');
+        const headResponse = await s3.headObject(params).promise();
+        console.log('head object response', headResponse);
+        Metadata = headResponse.Metadata;
       } catch (error) {
-        const message = `Error getting object ${Key} from bucket ${Bucket}`;
+        const message = `Error getting head object ${Key} from bucket ${Bucket}`;
         console.error(message, error);
         throw new Error(message);
       }
