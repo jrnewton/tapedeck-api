@@ -1,5 +1,6 @@
 //Process S3 events that are driven once an object has been uploaded to our bucket.
 //Update our DynamoDB table with relavent information about said object.
+//The S3 events are queued into an SQS queue to make them observable.
 
 'use strict';
 
@@ -37,7 +38,10 @@ exports.handler = async (event) => {
 
     console.log('processing event', eventTime, eventName, Bucket, Key);
 
-    if (eventName === 'ObjectCreated:Put') {
+    if (
+      eventName === 'ObjectCreated:Put' ||
+      eventName === 'ObjectCreated:CompleteMultipartUpload'
+    ) {
       const params = {
         Bucket,
         Key
