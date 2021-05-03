@@ -6,7 +6,7 @@ const process = require('../process-ddb-stream.js');
 
 it('produce SQS events', async () => {
   const record = JSON.parse(
-    fs.readFileSync(__dirname + 'record.json', 'utf-8')
+    fs.readFileSync(__dirname + '/record.json', 'utf-8')
   );
   console.log('record', record);
   const msg = await process.convertInsertRecord(record);

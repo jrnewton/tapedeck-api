@@ -4,7 +4,7 @@ const assert = require('assert');
 const handler = require('../request.js').handler;
 
 it('end to end test', async () => {
-  const event = JSON.parse(fs.readFileSync(__dirname + 'event.json', 'utf-8'));
+  const event = JSON.parse(fs.readFileSync(__dirname + '/event.json', 'utf-8'));
   console.log('event', event);
   const response = await handler(event);
   console.log('response', response);
