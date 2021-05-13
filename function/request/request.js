@@ -205,8 +205,8 @@ const handler = async (event) => {
       //remember to pad numbers for DDB to ensure lexi sort.  This will give 0-999.
       const trackIndex = (++index + '').padStart(3, '0');
 
-      //SortKey is index#ULID in case there are multiple resources from a playlist.
-      const SK = `track#${trackIndex}#${ulid()}`;
+      //SortKey is ulid#track in case there are multiple resources from a playlist.
+      const SK = `track#${ulid()}#${trackIndex}`;
 
       const key = await putItem(PK, SK, resource);
       console.log('putItem key', key);
