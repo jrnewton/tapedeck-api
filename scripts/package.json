@@ -1,0 +1,18 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "put.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@aws-amplify/auth": "^3.4.32",
+    "@aws-sdk/client-dynamodb": "^3.15.0",
+    "axios": "^0.21.1",
+    "ulid": "^2.3.0",
+    "uuid": "^8.3.2"
+  }
+}
