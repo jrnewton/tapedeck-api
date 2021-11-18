@@ -54,6 +54,7 @@
   "prettier": {
     "singleQuote": true,
     "trailingComma": "none",
-    "quoteProps": "consistent"
+    "quoteProps": "consistent",
+    "endOfLine": "auto"
   }
 }
