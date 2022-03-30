@@ -63,7 +63,7 @@ exports.handler = async (event) => {
         //Amazon S3 stores user-defined metadata keys in *lowercase*
         //https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingMetadata.html#object-metadata
         const { pk, sk } = Metadata;
-        const S3URL = `https://${Bucket}.s3.${awsRegion}.amazonaws.com/${Key}`;
+        const S3URL = `https://${Bucket}.s3.${awsRegion}.amazonaws.com/${record.s3.object.key}`;
         //https://tapedeck-archives.s3.us-east-2.amazonaws.com/d6ade639-bada-4ea2-9381-52c9d625cec2/1ebc2c3d-9972-4ce8-9fa2-b76b7babb44c.mp3
 
         const now = new Date().toISOString();
