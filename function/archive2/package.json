@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
-    "aws-sdk": "^2.791.0"
+    "aws-sdk": "^2.1354.0"
   },
   "dependencies": {
     "axios": "^0.21.1"
