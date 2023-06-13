@@ -10,7 +10,7 @@
     "mocha": "^8.3.2"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.13.0",
+    "@aws-sdk/client-dynamodb": "^3.351.0",
     "axios": "^0.21.1",
     "parse-hls": "^1.0.7",
     "ulid": "^2.3.0"
