@@ -17,3 +17,12 @@ Each function
 - resides in it's own directory under ./function/
 - has it's own package file with runtime dependencies
   and dev-dependencies used to test/lint.
+
+# Architecture
+
+The app can archive an M3U end to end with the following service flow:
+
+function/request -> receive GET request from https://tapedeck.us/capture, do simple validatation and write data to DynamoDB.
+function/process-ddb-stream -> convert DynamoDB insert events to SQS messages.
+function/archive2 -> Process SQS messages, streaming each object to an S3 bucket for the user (aka "subject").
+function/process-s3 -> Update DynamoDB based on S3 events (Eg set status from "in-progress" to "complete").
