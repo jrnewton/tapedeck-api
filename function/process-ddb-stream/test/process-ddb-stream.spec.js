@@ -4,7 +4,7 @@ const fs = require('fs');
 const assert = require('assert');
 const process = require('../process-ddb-stream.js');
 
-it('produce SQS events', async () => {
+it('produce SQS events', async function () {
   const record = JSON.parse(
     fs.readFileSync(__dirname + '/record.json', 'utf-8')
   );
