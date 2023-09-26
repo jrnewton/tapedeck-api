@@ -1,55 +1,57 @@
 {
-  "ApproximateCreationDateTime": 1619666545,
-  "Keys": {
-    "SK": {
-      "S": "track#001#01F4DTCATMZMV15TH2SR482ZB0"
+  "dynamodb": {
+    "ApproximateCreationDateTime": 1619666545,
+    "Keys": {
+      "SK": {
+        "S": "track#001#01F4DTCATMZMV15TH2SR482ZB0"
+      },
+      "PK": {
+        "S": "user#newtnik@gmail.com"
+      }
     },
-    "PK": {
-      "S": "user#newtnik@gmail.com"
-    }
-  },
-  "NewImage": {
-    "ItemStatus": {
-      "S": "download-pending"
+    "NewImage": {
+      "ItemStatus": {
+        "S": "download-pending"
+      },
+      "S3URL": {
+        "S": ""
+      },
+      "Title": {
+        "S": "track1"
+      },
+      "CreateDate": {
+        "S": "2021-04-29T03:22:25.492Z"
+      },
+      "URL": {
+        "S": "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3"
+      },
+      "LastModified": {
+        "S": ""
+      },
+      "Desc": {
+        "S": "Sample files via Lambda test"
+      },
+      "SK": {
+        "S": "track#001#01F4DTCATMZMV15TH2SR482ZB0"
+      },
+      "S3Size": {
+        "N": "0"
+      },
+      "PK": {
+        "S": "user#newtnik@gmail.com"
+      },
+      "LastDownloadDate": {
+        "S": ""
+      },
+      "ParentURL": {
+        "S": "https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test_medium.m3u"
+      },
+      "DownloadCount": {
+        "N": "0"
+      }
     },
-    "S3URL": {
-      "S": ""
-    },
-    "Title": {
-      "S": "track1"
-    },
-    "CreateDate": {
-      "S": "2021-04-29T03:22:25.492Z"
-    },
-    "URL": {
-      "S": "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3"
-    },
-    "LastModified": {
-      "S": ""
-    },
-    "Desc": {
-      "S": "Sample files via Lambda test"
-    },
-    "SK": {
-      "S": "track#001#01F4DTCATMZMV15TH2SR482ZB0"
-    },
-    "S3Size": {
-      "N": "0"
-    },
-    "PK": {
-      "S": "user#newtnik@gmail.com"
-    },
-    "LastDownloadDate": {
-      "S": ""
-    },
-    "ParentURL": {
-      "S": "https://tapedeck-sample-files.s3.us-east-2.amazonaws.com/test_medium.m3u"
-    },
-    "DownloadCount": {
-      "N": "0"
-    }
-  },
-  "SequenceNumber": "28401900000000005482044384",
-  "SizeBytes": 439,
-  "StreamViewType": "NEW_AND_OLD_IMAGES"
+    "SequenceNumber": "28401900000000005482044384",
+    "SizeBytes": 439,
+    "StreamViewType": "NEW_AND_OLD_IMAGES"
+  }
 }
