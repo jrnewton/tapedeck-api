@@ -3,7 +3,7 @@ const fs = require('fs');
 const assert = require('assert');
 const handler = require('../process-s3.js').handler;
 
-it('end to end test', async () => {
+it('end to end test', async function () {
   const event = JSON.parse(fs.readFileSync(__dirname + '/event.json', 'utf-8'));
   console.log('event', event);
   const response = await handler(event);
