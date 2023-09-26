@@ -1,6 +1,6 @@
 #!/bin/bash
-
-# I'm naming this 'pkg.sh' to avoid ctrl-p conflicts with package.json
+# Package lambda functions, for upload to AWS.
+# I'm naming this 'aws-pkg.sh' to avoid ctrl-p conflicts with package.json
 
 rm -rf ./dist/${FN}/ 
 mkdir -p ./dist/${FN}/ 
