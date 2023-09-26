@@ -4,7 +4,7 @@ const fs = require('fs');
 const assert = require('assert');
 const request = require('../request.js');
 
-it('provide a list of resources from an m3u playlist', () => {
+it('provide a list of resources from an m3u playlist', function () {
   const fileContents = fs.readFileSync(__dirname + '/test.m3u', 'utf-8');
   const contents = request.buildResourceListFromPlaylist(fileContents);
 
