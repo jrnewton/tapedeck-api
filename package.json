@@ -3,14 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "bash install.sh",
-    "lint": "eslint .",
     "pretty-all": "npx prettier --write ./function/**/*.js",
-    "request:deploy": "FN=request ./aws-pkg.sh && FN=request ./aws-upload.sh",
-    "process-ddb-stream:deploy": "FN=process-ddb-stream ./aws-pkg.sh && FN=process-ddb-stream ./aws-upload.sh",
-    "archive2:deploy": "FN=archive2 ./aws-pkg.sh && FN=archive2 ./aws-upload.sh",
-    "process-s3:deploy": "FN=process-s3 ./aws-pkg.sh && FN=process-s3 ./aws-upload.sh",
-    "deploy": "npm run request:deploy && npm run process-ddb-stream:deploy && npm run archive2:deploy && npm run process-s3:deploy"
+    "build": "echo 'build'",
+    "run": "echo 'run'"
   },
   "devDependencies": {
     "@types/mocha": "^8.2.0",
