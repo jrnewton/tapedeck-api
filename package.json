@@ -5,7 +5,7 @@
   "scripts": {
     "pretty-all": "npx prettier --write ./function/**/*.js",
     "build": "echo 'build'",
-    "run": "echo 'run'"
+    "start": "echo 'start'"
   },
   "devDependencies": {
     "@types/mocha": "^8.2.0",
