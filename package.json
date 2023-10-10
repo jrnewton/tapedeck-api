@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "pretty-all": "npx prettier --write ./function/**/*.js",
-    "build": "echo 'build'",
+    "build": "npm install",
     "start": "node src/app.js"
   },
   "devDependencies": {
